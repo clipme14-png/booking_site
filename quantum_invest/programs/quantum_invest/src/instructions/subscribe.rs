@@ -21,14 +21,16 @@ pub fn handle_subscribe(ctx: Context<Subscribe>, plan: u8) -> Result<()> {
     let clock = Clock::get()?;
 
     // ── Check for active subscription on same or higher plan ─────────────────
-    let vault = &mut ctx.accounts.subscription_vault;
-    if vault.expires_at > clock.unix_timestamp && vault.plan >= plan {
-        return err!(QuantumError::SubscriptionStillActive);
+    {
+        let vault = &ctx.accounts.subscription_vault;
+        if vault.expires_at > clock.unix_timestamp && vault.plan >= plan {
+            return err!(QuantumError::SubscriptionStillActive);
+        }
     }
 
     // ── Transfer SOL: wallet → vault PDA ────────────────────────────────────
     let cpi_ctx = CpiContext::new(
-        ctx.accounts.system_program.to_account_info(),
+        ctx.accounts.system_program.key(),
         system_program::Transfer {
             from: ctx.accounts.wallet.to_account_info(),
             to:   ctx.accounts.subscription_vault.to_account_info(),
@@ -37,6 +39,7 @@ pub fn handle_subscribe(ctx: Context<Subscribe>, plan: u8) -> Result<()> {
     system_program::transfer(cpi_ctx, price)?;
 
     // ── Update vault state ───────────────────────────────────────────────────
+    let vault = &mut ctx.accounts.subscription_vault;
     vault.owner           = ctx.accounts.wallet.key();
     vault.plan            = plan;
     vault.subscribed_at   = clock.unix_timestamp;

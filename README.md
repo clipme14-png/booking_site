@@ -1,4 +1,4 @@
-# Lumen — Learn-to-Earn on Solana
+# Quantum Invest — Learn-to-Earn on Solana
 
 A complete, production-grade frontend for a premium Web3 **Learn-to-Earn** platform. Read books, pass quizzes, and earn SOL — with a UI that feels like a fintech product (Stripe / Linear / Coinbase), not a crypto dApp.
 
