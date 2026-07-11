@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lumen — Learn-to-Earn on Solana
 
-## Getting Started
+A complete, production-grade frontend for a premium Web3 **Learn-to-Earn** platform. Read books, pass quizzes, and earn SOL — with a UI that feels like a fintech product (Stripe / Linear / Coinbase), not a crypto dApp.
 
-First, run the development server:
+Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS v4**, **Framer Motion**, **Lucide**, and the **Solana wallet adapter**. Full light/dark mode, fully responsive.
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Configure the Solana RPC in `.env.local` (see `.env.example`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Design system
 
-## Learn More
+- **Tokens** live in `src/app/globals.css` (`:root` + `.dark`), mapped to Tailwind via `@theme inline`.
+- Brand: purple (primary) · blue (secondary) · green (accent). Utilities: `bg-brand-gradient`, `text-gradient`, `glass`, `card-hover`.
+- Dark mode is class-based (`<html class="dark">`), toggled by `ThemeProvider` with no flash-of-wrong-theme.
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├─ app/
+│  ├─ (marketing)/        # Landing page (hero, features, plans, roadmap, FAQ…)
+│  ├─ (auth)/             # login, register, forgot-password, verify-email, two-factor, welcome
+│  ├─ (app)/              # Dashboard app shell (sidebar + topbar)
+│  │   dashboard, reading, reading/[bookId], quiz, plans, rewards,
+│  │   withdraw, referrals, boards, treasury, transactions, wallet,
+│  │   notifications, profile, admin
+│  ├─ *-error, not-found, error   # Polished error & status pages
+│  └─ layout.tsx          # Root: fonts, ThemeProvider, WalletProvider, ToastProvider
+├─ components/
+│  ├─ ui/                 # Reusable primitives (button, card, badge, input, dialog, tabs…)
+│  ├─ charts/             # Custom SVG charts (area, bar, donut, sparkline)
+│  ├─ app/                # App shell (sidebar, topbar, page-header)
+│  └─ marketing/          # Landing sections
+├─ lib/                   # utils + centralized mock data
+└─ config/                # navigation config
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Notes
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All data is mock/placeholder (`src/lib/mock-data.ts`) — the wallet adapter reads real balances when a wallet is connected, everything else is illustrative.

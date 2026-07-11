@@ -1,26 +1,268 @@
 @import "tailwindcss";
 
+/* Class-based dark mode (toggled via <html class="dark">) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/*  Design Tokens                                                      */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.85rem;
+
+  /* Surfaces */
+  --background: hsl(240 20% 99%);
+  --foreground: hsl(240 10% 8%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(240 10% 8%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(240 10% 8%);
+  --muted: hsl(240 16% 96%);
+  --muted-foreground: hsl(240 6% 44%);
+
+  /* Brand */
+  --primary: hsl(262 83% 58%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(221 83% 55%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --accent: hsl(152 62% 42%);
+  --accent-foreground: hsl(0 0% 100%);
+
+  /* Feedback */
+  --success: hsl(152 62% 42%);
+  --warning: hsl(38 92% 50%);
+  --destructive: hsl(0 72% 51%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  /* Lines & fields */
+  --border: hsl(240 12% 90%);
+  --input: hsl(240 12% 90%);
+  --ring: hsl(262 83% 58%);
+
+  /* Brand raw values for gradients / glows */
+  --violet: 262 83% 58%;
+  --blue: 221 83% 55%;
+  --green: 152 62% 42%;
+
+  --sidebar: hsl(0 0% 100%);
+  --sidebar-foreground: hsl(240 10% 8%);
+  --glass: 255 255 255;
+  --shadow-color: 240 30% 20%;
 }
 
+.dark {
+  --background: hsl(240 12% 5%);
+  --foreground: hsl(240 12% 96%);
+  --card: hsl(240 11% 8%);
+  --card-foreground: hsl(240 12% 96%);
+  --popover: hsl(240 11% 8%);
+  --popover-foreground: hsl(240 12% 96%);
+  --muted: hsl(240 9% 13%);
+  --muted-foreground: hsl(240 6% 60%);
+
+  --primary: hsl(263 90% 68%);
+  --primary-foreground: hsl(240 12% 6%);
+  --secondary: hsl(217 91% 65%);
+  --secondary-foreground: hsl(240 12% 6%);
+  --accent: hsl(152 58% 52%);
+  --accent-foreground: hsl(240 12% 6%);
+
+  --success: hsl(152 58% 52%);
+  --warning: hsl(38 92% 58%);
+  --destructive: hsl(0 72% 58%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(240 8% 18%);
+  --input: hsl(240 8% 18%);
+  --ring: hsl(263 90% 68%);
+
+  --violet: 263 90% 68%;
+  --blue: 217 91% 65%;
+  --green: 152 58% 52%;
+
+  --sidebar: hsl(240 12% 6%);
+  --sidebar-foreground: hsl(240 12% 96%);
+  --glass: 20 20 28;
+  --shadow-color: 240 60% 2%;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Tailwind theme mapping                                            */
+/* ------------------------------------------------------------------ */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 10px);
+
+  --shadow-xs: 0 1px 2px 0 hsl(var(--shadow-color) / 0.05);
+  --shadow-sm: 0 1px 3px 0 hsl(var(--shadow-color) / 0.08), 0 1px 2px -1px hsl(var(--shadow-color) / 0.08);
+  --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / 0.1), 0 2px 6px -2px hsl(var(--shadow-color) / 0.08);
+  --shadow-lg: 0 12px 32px -8px hsl(var(--shadow-color) / 0.14), 0 4px 12px -4px hsl(var(--shadow-color) / 0.1);
+  --shadow-glow: 0 0 40px -8px hsl(var(--violet) / 0.45);
+
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-aurora: aurora 18s ease infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------------ */
+/*  Base                                                              */
+/* ------------------------------------------------------------------ */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: hsl(var(--violet) / 0.25);
+  }
+  /* Themed scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--muted-foreground);
+    background-clip: content-box;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                         */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  .glass {
+    background: hsl(var(--glass) / 0.65);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+  }
+  .glass-strong {
+    background: hsl(var(--glass) / 0.85);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+  }
+  .text-gradient {
+    background: linear-gradient(
+      100deg,
+      hsl(var(--violet)),
+      hsl(var(--blue)) 55%,
+      hsl(var(--green))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-brand-gradient {
+    background-image: linear-gradient(100deg, hsl(var(--violet)), hsl(var(--blue)));
+  }
+  .bg-brand-gradient-vivid {
+    background-image: linear-gradient(120deg, hsl(var(--violet)), hsl(var(--blue)) 50%, hsl(var(--green)));
+  }
+  .ring-focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  .ring-focus:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  .card-hover {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.25s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+  .grid-pattern {
+    background-image:
+      linear-gradient(to right, hsl(var(--violet) / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--violet) / 0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .animate-in {
+    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Keyframes                                                         */
+/* ------------------------------------------------------------------ */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes aurora {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(3%, -3%) rotate(4deg); }
+  66% { transform: translate(-3%, 2%) rotate(-3deg); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Solana wallet-adapter modal theming to match app */
+.wallet-adapter-button-trigger {
+  background: transparent !important;
 }
