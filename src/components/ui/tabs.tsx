@@ -38,6 +38,7 @@ export function Tabs({
   );
 }
 
+/** Segmented control. */
 export function TabsList({
   children,
   className,
@@ -47,8 +48,9 @@ export function TabsList({
 }) {
   return (
     <div
+      role="tablist"
       className={cn(
-        "inline-flex items-center gap-1 rounded-xl border border-border bg-muted/60 p-1",
+        "inline-flex items-center gap-0.5 rounded-[10px] bg-foreground/[0.06] p-[3px]",
         className,
       )}
     >
@@ -70,9 +72,11 @@ export function TabsTrigger({
   const active = ctx.value === value;
   return (
     <button
+      role="tab"
+      aria-selected={active}
       onClick={() => ctx.setValue(value)}
       className={cn(
-        "relative rounded-lg px-3.5 py-1.5 text-sm font-medium transition-colors",
+        "relative inline-flex items-center gap-1.5 rounded-[7px] px-3 py-1 text-[13px] font-medium transition-colors duration-200",
         active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
         className,
       )}
@@ -80,11 +84,11 @@ export function TabsTrigger({
       {active && (
         <motion.span
           layoutId={`tab-${ctx.layoutId}`}
-          className="absolute inset-0 rounded-lg bg-card shadow-sm"
-          transition={{ type: "spring", stiffness: 400, damping: 32 }}
+          className="absolute inset-0 rounded-[7px] bg-card shadow-[0_1px_3px_rgb(0_0_0/0.08),0_0_0_0.5px_rgb(0_0_0/0.04)] dark:bg-foreground/[0.14]"
+          transition={{ type: "spring", stiffness: 500, damping: 40 }}
         />
       )}
-      <span className="relative z-10">{children}</span>
+      <span className="relative z-10 inline-flex items-center gap-1.5">{children}</span>
     </button>
   );
 }
@@ -102,8 +106,9 @@ export function TabsContent({
   if (ctx.value !== value) return null;
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
+      role="tabpanel"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.25 }}
       className={className}
     >

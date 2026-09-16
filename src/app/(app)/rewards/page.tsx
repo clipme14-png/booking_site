@@ -2,12 +2,10 @@
 
 import * as React from "react";
 import {
-  Coins,
   Gift,
   Clock,
   Calendar,
   TrendingUp,
-  Sparkles,
   Check,
   Hourglass,
   BookOpen,
@@ -34,10 +32,10 @@ import { cn, formatToken } from "@/lib/utils";
 type Range = "7d" | "30d" | "all";
 
 const sources = [
-  { label: "Reading", value: 42, color: "#7c3aed", icon: <BookOpen /> },
-  { label: "Quiz", value: 24, color: "#2563eb", icon: <Brain /> },
-  { label: "Referral", value: 21, color: "#16a34a", icon: <Users /> },
-  { label: "Streak", value: 13, color: "#f59e0b", icon: <Flame /> },
+  { label: "Reading", value: 42, color: "#2f6fde", icon: <BookOpen /> },
+  { label: "Quiz", value: 24, color: "#5b7fa6", icon: <Brain /> },
+  { label: "Referral", value: 21, color: "#6f8f78", icon: <Users /> },
+  { label: "Streak", value: 13, color: "#b8955a", icon: <Flame /> },
 ];
 
 function statusBadge(status: string) {
@@ -97,32 +95,32 @@ export default function RewardsPage() {
       />
 
       {/* Hero row */}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-        <Reveal className="lg:col-span-1">
-          <Card className="relative overflow-hidden bg-brand-gradient p-6 text-white shadow-glow">
-            <div className="absolute -right-8 -top-8 size-32 rounded-full bg-white/10 blur-2xl" />
-            <div className="relative">
-              <div className="flex items-center gap-2 text-sm font-medium text-white/80">
-                <Sparkles className="size-4" /> Claimable now
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+        <Reveal className="xl:col-span-1">
+          <Card className="surface-ink relative flex h-full flex-col justify-between overflow-hidden p-6">
+            <div>
+              <div className="text-[13px] font-medium text-white/55">
+                Ready to claim
               </div>
-              <div className="mt-3 text-4xl font-bold tracking-tight">
+              <div className="mt-3 text-[40px] font-semibold leading-none tracking-[-0.03em] tabular">
                 {formatToken(rewards.claimable)}
               </div>
-              <p className="mt-1 text-sm text-white/70">
-                Ready to withdraw to your wallet
+              <p className="mt-2 text-[13px] text-white/55">
+                Can be sent to your wallet now.
               </p>
+            </div>
+            <div>
               <Button
-                variant="subtle"
-                className="mt-6 w-full bg-white text-primary hover:bg-white/90"
+                className="mt-8 w-full bg-white text-black hover:bg-white/85 dark:bg-white dark:text-black"
                 onClick={() => setClaimAllOpen(true)}
               >
-                <Coins /> Claim rewards
+                Claim rewards
               </Button>
             </div>
           </Card>
         </Reveal>
 
-        <div className="grid grid-cols-2 gap-5 lg:col-span-2">
+        <div className="grid grid-cols-2 gap-5 xl:col-span-2">
           <Reveal delay={1}>
             <StatCard
               label="Pending"
@@ -183,7 +181,7 @@ export default function RewardsPage() {
                       className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="flex size-10 items-center justify-center rounded-xl bg-accent/12 text-accent [&_svg]:size-5">
+                        <span className="flex size-10 items-center justify-center rounded-xl bg-foreground/[0.05] text-foreground [&_svg]:size-5">
                           <Gift />
                         </span>
                         <div>
@@ -220,7 +218,7 @@ export default function RewardsPage() {
                       className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="flex size-10 items-center justify-center rounded-xl bg-warning/12 text-warning [&_svg]:size-5">
+                        <span className="flex size-10 items-center justify-center rounded-xl bg-foreground/[0.05] text-foreground [&_svg]:size-5">
                           <Hourglass />
                         </span>
                         <div>
@@ -268,8 +266,8 @@ export default function RewardsPage() {
       </Reveal>
 
       {/* Charts */}
-      <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
-        <Reveal className="lg:col-span-2">
+      <div className="mt-8 grid grid-cols-1 gap-5 xl:grid-cols-3">
+        <Reveal className="xl:col-span-2">
           <Card className="p-6">
             <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -310,7 +308,7 @@ export default function RewardsPage() {
             <p className="mt-1 text-sm text-muted-foreground">Where your SOL comes from</p>
             <div className="mt-4 flex justify-center">
               <DonutChart segments={sources} size={168} strokeWidth={20}>
-                <span className="text-2xl font-bold">100%</span>
+                <span className="text-2xl font-semibold">100%</span>
                 <span className="text-xs text-muted-foreground">of rewards</span>
               </DonutChart>
             </div>
@@ -340,7 +338,7 @@ export default function RewardsPage() {
         />
         <div className="flex items-center justify-between rounded-xl border border-border bg-muted/40 p-4">
           <span className="text-sm text-muted-foreground">Total claimable</span>
-          <span className="text-lg font-bold">{formatToken(rewards.claimable)}</span>
+          <span className="text-lg font-semibold">{formatToken(rewards.claimable)}</span>
         </div>
         <div className="mt-5 flex gap-3">
           <Button variant="outline" className="flex-1" onClick={() => setClaimAllOpen(false)}>
@@ -359,7 +357,7 @@ export default function RewardsPage() {
             <DialogHeader title="Claim reward" description={claimItem.type} />
             <div className="flex items-center justify-between rounded-xl border border-border bg-muted/40 p-4">
               <span className="text-sm text-muted-foreground">Amount</span>
-              <span className="text-lg font-bold text-accent">
+              <span className="text-lg font-semibold text-accent">
                 +{formatToken(claimItem.amount)}
               </span>
             </div>

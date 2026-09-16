@@ -8,7 +8,6 @@ import {
   X,
   Clock,
   ArrowRight,
-  Trophy,
   Coins,
   Sparkles,
   Zap,
@@ -21,6 +20,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CircularProgress } from "@/components/ui/progress";
+import { SuccessMark } from "@/components/ui/success-mark";
 import { useToast } from "@/components/ui/toast";
 
 const QUESTION_TIME = 30;
@@ -111,7 +111,7 @@ export default function QuizPage() {
               <BookOpen className="size-3.5" />
               Quiz
             </p>
-            <h1 className="truncate text-xl font-bold tracking-tight sm:text-2xl">
+            <h1 className="truncate text-xl font-semibold tracking-tight sm:text-2xl">
               {BOOK_TITLE}
             </h1>
           </div>
@@ -128,7 +128,7 @@ export default function QuizPage() {
                 warning ? "text-destructive" : "text-foreground",
               )}
             >
-              <span className="text-base font-bold tabular-nums">
+              <span className="text-base font-semibold tabular-nums">
                 {timeLeft}
               </span>
               <span className="text-[9px] text-muted-foreground">sec</span>
@@ -143,17 +143,17 @@ export default function QuizPage() {
           </span>
           <Badge variant={warning ? "destructive" : "outline"} className="gap-1">
             <Clock className="size-3" />
-            {warning ? "Hurry!" : "30s each"}
+            {warning ? "Time running out" : "30 seconds each"}
           </Badge>
         </div>
         <div className="mt-2 flex gap-1.5">
           {quizQuestions.map((_, i) => (
             <div
               key={i}
-              className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted"
+              className="h-1 flex-1 overflow-hidden rounded-full bg-foreground/[0.07]"
             >
               <motion.div
-                className="h-full rounded-full bg-brand-gradient"
+                className="h-full rounded-full bg-primary"
                 initial={false}
                 animate={{
                   width: i < index ? "100%" : i === index ? "100%" : "0%",
@@ -167,14 +167,14 @@ export default function QuizPage() {
       </div>
 
       {/* Question card */}
-      <div className="relative">
+      <div className="relative overflow-x-clip">
         <AnimatePresence mode="wait">
           <motion.div
             key={question.id}
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, x: -16 }}
+            transition={{ duration: 0.3, ease: [0.28, 0.11, 0.32, 1] }}
           >
             <Card className="overflow-hidden">
               <CardContent className="space-y-5 p-6">
@@ -210,10 +210,10 @@ export default function QuizPage() {
                           showWrong && "border-destructive bg-destructive/10",
                           !locked &&
                             chosen &&
-                            "border-primary bg-primary/8 shadow-sm",
+                            "border-primary bg-foreground/[0.03] shadow-sm",
                           !locked &&
                             !chosen &&
-                            "border-border bg-card hover:border-primary/40 hover:bg-muted/50",
+                            "border-border bg-card hover:border-foreground/25 hover:bg-muted/50",
                           locked &&
                             !showCorrect &&
                             !showWrong &&
@@ -229,7 +229,7 @@ export default function QuizPage() {
                               "border-destructive bg-destructive text-white",
                             !locked &&
                               chosen &&
-                              "border-primary bg-primary text-white",
+                              "border-primary bg-primary text-primary-foreground",
                             !locked &&
                               !chosen &&
                               "border-border text-muted-foreground",
@@ -334,64 +334,34 @@ function CompletionScreen({
   const passed = percentage >= 50;
   const earned = +(REWARD * (score / total)).toFixed(3);
 
-  const confetti = React.useMemo(
-    () =>
-      Array.from({ length: 18 }).map((_, i) => ({
-        id: i,
-        x: (Math.random() - 0.5) * 340,
-        y: -(Math.random() * 200 + 80),
-        rotate: Math.random() * 360,
-        color: ["#7c3aed", "#2563eb", "#16a34a", "#f59e0b", "#db2777"][i % 5],
-        delay: Math.random() * 0.3,
-      })),
-    [],
-  );
 
   return (
     <Card className="relative overflow-hidden">
-      <div className="pointer-events-none absolute -top-16 left-1/2 size-56 -translate-x-1/2 rounded-full bg-brand-gradient opacity-15 blur-3xl" />
 
-      {passed &&
-        confetti.map((c) => (
-          <motion.span
-            key={c.id}
-            className="absolute left-1/2 top-24 z-10 size-2 rounded-sm"
-            style={{ backgroundColor: c.color }}
-            initial={{ opacity: 0, x: 0, y: 0 }}
-            animate={{
-              opacity: [0, 1, 1, 0],
-              x: c.x,
-              y: c.y,
-              rotate: c.rotate,
-            }}
-            transition={{ duration: 1.6, delay: c.delay, ease: "easeOut" }}
-          />
-        ))}
 
       <CardContent className="relative z-10 flex flex-col items-center gap-5 p-8 text-center">
-        <motion.div
-          initial={{ scale: 0, rotate: -20 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 220, damping: 14 }}
-          className="flex size-20 items-center justify-center rounded-full bg-brand-gradient text-white shadow-glow"
-        >
-          <Trophy className="size-10" />
-        </motion.div>
+        {passed ? (
+          <SuccessMark size={64} />
+        ) : (
+          <span className="flex size-16 items-center justify-center rounded-full bg-foreground/[0.06] text-muted-foreground">
+            <RotateCcw className="size-7" strokeWidth={1.5} />
+          </span>
+        )}
 
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            {passed ? "Quiz passed!" : "Quiz complete"}
+          <h1 className="text-[28px] font-semibold tracking-tight">
+            {passed ? "Quiz passed" : "Quiz complete"}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {passed
-              ? "Great work — your reward has been credited."
-              : "Good effort. Review the book and try again for a bigger reward."}
+              ? "Your reward has been credited."
+              : "Review the book and try again for a larger reward."}
           </p>
         </div>
 
         <CircularProgress value={percentage} size={150} strokeWidth={12}>
           <div className="flex flex-col items-center">
-            <span className="text-3xl font-bold tracking-tight">
+            <span className="text-3xl font-semibold tracking-tight">
               {percentage}%
             </span>
             <span className="text-xs text-muted-foreground">
@@ -402,43 +372,40 @@ function CompletionScreen({
 
         <div className="grid w-full grid-cols-3 gap-3">
           <SummaryStat
-            icon={<Check className="size-4 text-success" />}
+            icon={<Check className="size-4 text-muted-foreground" />}
             label="Correct"
             value={`${score}/${total}`}
           />
           <SummaryStat
-            icon={<Coins className="size-4 text-primary" />}
+            icon={<Coins className="size-4 text-muted-foreground" />}
             label="SOL earned"
             value={formatToken(earned)}
           />
           <SummaryStat
-            icon={<Zap className="size-4 text-warning" />}
+            icon={<Zap className="size-4 text-muted-foreground" />}
             label="XP gained"
             value={`+${xpGained}`}
           />
         </div>
 
         {/* Board progress */}
-        <div className="w-full rounded-xl border border-border bg-muted/30 p-4 text-left">
-          <div className="flex items-center justify-between text-sm">
-            <span className="flex items-center gap-1.5 font-medium">
-              <Sparkles className="size-4 text-primary" />
-              Board progress
-            </span>
-            <span className="font-semibold text-primary">
+        <div className="w-full rounded-xl bg-foreground/[0.03] p-4 text-left">
+          <div className="flex items-center justify-between text-[13px]">
+            <span className="font-medium">Board progress</span>
+            <span className="font-semibold tabular">
               +{Math.round((score / total) * 4)}%
             </span>
           </div>
-          <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-muted">
+          <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-foreground/[0.07]">
             <motion.div
-              className="h-full rounded-full bg-brand-gradient"
+              className="h-full rounded-full bg-primary"
               initial={{ width: "68%" }}
               animate={{ width: `${68 + Math.round((score / total) * 4)}%` }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1, ease: [0.28, 0.11, 0.32, 1] }}
             />
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            Keep going to unlock the next board tier and bigger weekly rewards.
+            Four more points unlock the Sage board.
           </p>
         </div>
 
@@ -447,15 +414,13 @@ function CompletionScreen({
             href="/reading"
             className={cn(buttonVariants({ variant: "outline" }), "flex-1")}
           >
-            <RotateCcw className="size-4" />
-            Back to reading
+            Back to library
           </Link>
           <Link
             href="/rewards"
             className={cn(buttonVariants(), "flex-1")}
           >
             View rewards
-            <ArrowRight className="size-4" />
           </Link>
         </div>
       </CardContent>
@@ -473,7 +438,7 @@ function SummaryStat({
   value: string;
 }) {
   return (
-    <div className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card p-3">
+    <div className="flex flex-col items-center gap-1 rounded-xl bg-foreground/[0.03] p-3">
       {icon}
       <span className="text-sm font-semibold tabular-nums">{value}</span>
       <span className="text-[11px] text-muted-foreground">{label}</span>

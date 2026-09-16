@@ -317,8 +317,8 @@ function PreferencesTab() {
                   className={cn(
                     "flex flex-col items-center gap-2 rounded-xl border p-4 text-sm font-medium transition-all [&_svg]:size-5",
                     selected
-                      ? "border-primary bg-primary/5 text-foreground shadow-sm ring-2 ring-primary/25"
-                      : "border-border text-muted-foreground hover:border-primary/40 hover:text-foreground",
+                      ? "border-primary bg-foreground/[0.03] text-foreground shadow-sm ring-2 ring-ring/20"
+                      : "border-border text-muted-foreground hover:border-foreground/25 hover:text-foreground",
                   )}
                 >
                   <span className={cn(selected && "text-primary")}>{t.icon}</span>
@@ -418,7 +418,7 @@ function WalletsTab() {
         {wallets.map((w) => (
           <div key={w.id} className="flex items-center justify-between gap-3 rounded-xl border border-border p-4">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-xl bg-primary/12 text-primary [&_svg]:size-5">
+              <div className="flex size-10 items-center justify-center rounded-xl bg-foreground/[0.05] text-foreground [&_svg]:size-5">
                 <Wallet />
               </div>
               <div>
@@ -503,7 +503,7 @@ function NotificationsSettingsTab() {
       <CardContent>
         <div className="overflow-x-auto">
           <div className="min-w-[420px]">
-            <div className="grid grid-cols-[1fr_repeat(3,72px)] items-center gap-2 border-b border-border pb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            <div className="grid grid-cols-[1fr_repeat(3,72px)] items-center gap-2 border-b border-border pb-3 text-xs font-medium text-muted-foreground">
               <span>Category</span>
               {channels.map((c) => (
                 <span key={c} className="text-center">
@@ -555,28 +555,27 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <PageHeader title="Profile & Settings" description="Manage your account, security, and preferences." />
+      <PageHeader title="Account" description="Profile, security and preferences." />
 
       {/* Profile header */}
       <Reveal>
         <Card className="mb-6 overflow-hidden">
-          <div className="h-24 bg-brand-gradient/90 grid-pattern" />
-          <CardContent className="pt-0">
+          <CardContent className="pt-6 sm:pt-7">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-                <div className="relative -mt-10 w-fit">
-                  <Avatar name={currentUser.name} src={currentUser.avatar} size="xl" ring className="size-20 text-2xl" />
+                <div className="relative w-fit">
+                  <Avatar name={currentUser.name} src={currentUser.avatar} size="xl" className="size-20 text-2xl" />
                   <button
                     onClick={() => toast({ title: "Upload a new photo" })}
                     aria-label="Change photo"
-                    className="absolute -bottom-1 -right-1 flex size-7 items-center justify-center rounded-full border-2 border-card bg-primary text-white shadow-sm transition-transform hover:scale-105 [&_svg]:size-3.5"
+                    className="absolute -bottom-1 -right-1 flex size-7 items-center justify-center rounded-full border-2 border-card bg-foreground text-background transition-opacity hover:opacity-85 [&_svg]:size-3.5"
                   >
                     <Camera />
                   </button>
                 </div>
                 <div className="pb-1">
                   <div className="flex items-center gap-2">
-                    <h2 className="text-xl font-bold tracking-tight">{currentUser.name}</h2>
+                    <h2 className="text-xl font-semibold tracking-tight">{currentUser.name}</h2>
                     {currentUser.verified && (
                       <Badge variant="secondary">
                         <BadgeCheck /> Verified
@@ -604,14 +603,14 @@ export default function ProfilePage() {
                 <div className="rounded-xl border border-border bg-muted/30 px-4 py-2.5 text-center">
                   <div className="flex items-center justify-center gap-1.5 text-primary [&_svg]:size-4">
                     <Trophy />
-                    <span className="text-lg font-bold text-foreground">{currentUser.board}</span>
+                    <span className="text-lg font-semibold text-foreground">{currentUser.board}</span>
                   </div>
                   <p className="text-[11px] text-muted-foreground">Board tier</p>
                 </div>
                 <div className="rounded-xl border border-border bg-muted/30 px-4 py-2.5 text-center">
                   <div className="flex items-center justify-center gap-1.5 text-warning [&_svg]:size-4">
                     <Flame />
-                    <span className="text-lg font-bold text-foreground">{currentUser.streak}</span>
+                    <span className="text-lg font-semibold text-foreground">{currentUser.streak}</span>
                   </div>
                   <p className="text-[11px] text-muted-foreground">Day streak</p>
                 </div>

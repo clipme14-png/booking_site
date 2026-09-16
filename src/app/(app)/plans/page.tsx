@@ -1,15 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import {
   Check,
   X,
-  Sparkles,
   Zap,
   BookOpen,
   ShieldCheck,
-  Wallet,
   Star,
 } from "lucide-react";
 import { PageHeader } from "@/components/app/page-header";
@@ -17,23 +14,17 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Dialog, DialogHeader } from "@/components/ui/dialog";
+import { CheckoutDialog } from "@/components/billing/checkout-dialog";
 import { Reveal } from "@/components/reveal";
 import { useToast } from "@/components/ui/toast";
 import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
+import { priceSol } from "@/lib/billing/catalog";
 import { plans, currentUser, type Plan } from "@/lib/mock-data";
-import { cn, formatToken, formatUsd } from "@/lib/utils";
-
-const accentDot: Record<Plan["accent"], string> = {
-  muted: "bg-muted-foreground/50",
-  primary: "bg-primary",
-  secondary: "bg-secondary",
-  accent: "bg-accent",
-};
+import { cn, formatUsd } from "@/lib/utils";
 
 function priceFor(plan: Plan, yearly: boolean) {
   if (plan.priceSol === 0) return 0;
-  return yearly ? +(plan.priceSol * 12 * 0.8).toFixed(2) : plan.priceSol;
+  return priceSol(plan, yearly ? "yearly" : "monthly");
 }
 
 export default function PlansPage() {
@@ -41,15 +32,12 @@ export default function PlansPage() {
   const [yearly, setYearly] = React.useState(false);
   const [selected, setSelected] = React.useState<Plan | null>(null);
 
-  const confirm = () => {
-    if (!selected) return;
-    const label = selected.name;
-    setSelected(null);
-    toast({
-      title: `Welcome to ${label}!`,
-      description: "Your subscription is active. Time to earn.",
-      variant: "success",
-    });
+  const choose = (plan: Plan) => {
+    if (plan.priceSol === 0) {
+      toast({ title: "You're on Starter", description: "The free plan is always available." });
+      return;
+    }
+    setSelected(plan);
   };
 
   return (
@@ -93,29 +81,21 @@ export default function PlansPage() {
           const price = priceFor(plan, yearly);
           return (
             <Reveal key={plan.id} delay={i} className="h-full">
-              <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                className="h-full"
-              >
+              <div className="h-full">
                 <Card
                   className={cn(
                     "relative flex h-full flex-col overflow-hidden p-6",
-                    plan.popular &&
-                      "border-primary shadow-glow sm:scale-[1.02]",
+                    plan.popular && "border-foreground ring-1 ring-foreground",
                   )}
                 >
                   {plan.popular && (
                     <div className="absolute right-5 top-5">
-                      <Badge variant="solid" className="gap-1">
-                        <Sparkles className="size-3" /> Most popular
-                      </Badge>
+                      <Badge variant="solid">Most popular</Badge>
                     </div>
                   )}
 
                   <div className="flex items-center gap-2">
-                    <span className={cn("size-2 rounded-full", accentDot[plan.accent])} />
-                    <h3 className="text-lg font-bold tracking-tight">{plan.name}</h3>
+                    <h3 className="text-lg font-semibold tracking-tight">{plan.name}</h3>
                   </div>
                   <p className="mt-1.5 min-h-10 text-sm text-muted-foreground">
                     {plan.tagline}
@@ -124,10 +104,10 @@ export default function PlansPage() {
                   {/* Price */}
                   <div className="mt-5">
                     {plan.priceSol === 0 ? (
-                      <div className="text-4xl font-bold tracking-tight">Free</div>
+                      <div className="text-4xl font-semibold tracking-tight">Free</div>
                     ) : (
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-4xl font-bold tracking-tight">
+                        <span className="text-4xl font-semibold tracking-tight">
                           {price}
                         </span>
                         <span className="text-lg font-semibold text-muted-foreground">
@@ -157,7 +137,7 @@ export default function PlansPage() {
                   <ul className="mt-5 flex-1 space-y-2.5">
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-start gap-2.5 text-sm">
-                        <span className="mt-0.5 flex size-4.5 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
+                        <span className="mt-0.5 flex size-4.5 shrink-0 items-center justify-center rounded-full bg-foreground/[0.05] text-foreground">
                           <Check className="size-3" />
                         </span>
                         <span className="text-foreground/90">{f}</span>
@@ -175,14 +155,14 @@ export default function PlansPage() {
                       <Button
                         variant={plan.popular ? "default" : "outline"}
                         className="w-full"
-                        onClick={() => setSelected(plan)}
+                        onClick={() => choose(plan)}
                       >
                         {plan.priceSol === 0 ? "Get started" : "Subscribe"}
                       </Button>
                     )}
                   </div>
                 </Card>
-              </motion.div>
+              </div>
             </Reveal>
           );
         })}
@@ -191,7 +171,7 @@ export default function PlansPage() {
       {/* Comparison table */}
       <Reveal className="mt-14">
         <div className="mb-4">
-          <h2 className="text-lg font-bold tracking-tight">Compare all plans</h2>
+          <h2 className="text-lg font-semibold tracking-tight">Compare all plans</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Every detail, side by side. Your current plan is highlighted.
           </p>
@@ -206,7 +186,7 @@ export default function PlansPage() {
                     key={p.id}
                     className={cn(
                       "text-center",
-                      p.name === currentUser.plan && "bg-primary/[0.07] text-primary",
+                      p.name === currentUser.plan && "bg-foreground/[0.03] text-primary",
                     )}
                   >
                     {p.name}
@@ -223,7 +203,7 @@ export default function PlansPage() {
                       key={p.id}
                       className={cn(
                         "text-center",
-                        p.name === currentUser.plan && "bg-primary/[0.05]",
+                        p.name === currentUser.plan && "bg-foreground/[0.03]",
                       )}
                     >
                       <Cell value={row.get(p)} />
@@ -243,7 +223,7 @@ export default function PlansPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {reassurance.map((r) => (
               <div key={r.title} className="flex items-start gap-3">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/12 text-primary [&_svg]:size-4.5">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-foreground/[0.05] text-foreground [&_svg]:size-4.5">
                   {r.icon}
                 </span>
                 <div>
@@ -256,43 +236,12 @@ export default function PlansPage() {
         </Card>
       </Reveal>
 
-      {/* Confirm dialog */}
-      <Dialog open={!!selected} onClose={() => setSelected(null)}>
-        {selected && (
-          <>
-            <DialogHeader
-              title={`Subscribe to ${selected.name}`}
-              description={selected.tagline}
-            />
-            <div className="space-y-3 rounded-xl border border-border bg-muted/40 p-4">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Plan</span>
-                <span className="font-semibold">{selected.name}</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Billing</span>
-                <span className="font-semibold">{yearly ? "Yearly" : "Monthly"}</span>
-              </div>
-              <div className="flex items-center justify-between border-t border-border pt-3 text-sm">
-                <span className="text-muted-foreground">Total</span>
-                <span className="text-base font-bold">
-                  {selected.priceSol === 0
-                    ? "Free"
-                    : `${formatToken(priceFor(selected, yearly))} ${yearly ? "/yr" : "/mo"}`}
-                </span>
-              </div>
-            </div>
-            <div className="mt-5 flex gap-3">
-              <Button variant="outline" className="flex-1" onClick={() => setSelected(null)}>
-                Cancel
-              </Button>
-              <Button className="flex-1" onClick={confirm}>
-                <Wallet /> Confirm &amp; pay in SOL
-              </Button>
-            </div>
-          </>
-        )}
-      </Dialog>
+      <CheckoutDialog
+        plan={selected}
+        cycle={yearly ? "yearly" : "monthly"}
+        defaultEmail={currentUser.email}
+        onClose={() => setSelected(null)}
+      />
     </div>
   );
 }

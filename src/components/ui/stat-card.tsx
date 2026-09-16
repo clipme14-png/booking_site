@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { animate, useInView, useReducedMotion } from "framer-motion";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,6 @@ export function StatCard({
   icon,
   change,
   changeLabel,
-  accent = "primary",
   className,
   children,
 }: {
@@ -21,44 +20,32 @@ export function StatCard({
   icon?: React.ReactNode;
   change?: number;
   changeLabel?: string;
+  /** Retained for API compatibility; stat cards are monochrome. */
   accent?: "primary" | "secondary" | "accent" | "warning";
   className?: string;
   children?: React.ReactNode;
 }) {
-  const accentMap = {
-    primary: "bg-primary/12 text-primary",
-    secondary: "bg-secondary/12 text-secondary",
-    accent: "bg-accent/12 text-accent",
-    warning: "bg-warning/15 text-warning",
-  };
   const positive = (change ?? 0) >= 0;
 
   return (
-    <Card className={cn("card-hover p-5", className)}>
-      <div className="flex items-start justify-between">
-        <div className="space-y-1">
-          <p className="text-sm font-medium text-muted-foreground">{label}</p>
-          <p className="text-2xl font-bold tracking-tight">{value}</p>
-        </div>
+    <Card className={cn("p-5", className)}>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-[13px] font-medium text-muted-foreground">{label}</p>
         {icon && (
-          <div
-            className={cn(
-              "flex size-11 items-center justify-center rounded-xl [&_svg]:size-5",
-              accentMap[accent],
-            )}
-          >
+          <span className="text-muted-foreground/70 [&_svg]:size-4 [&_svg]:stroke-[1.75]">
             {icon}
-          </div>
+          </span>
         )}
       </div>
+      <p className="tabular mt-3 text-[28px] font-semibold leading-none tracking-tight">
+        {value}
+      </p>
       {change !== undefined && (
-        <div className="mt-3 flex items-center gap-1.5 text-xs">
+        <p className="mt-3 flex items-center gap-1 text-xs">
           <span
             className={cn(
-              "inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 font-semibold [&_svg]:size-3",
-              positive
-                ? "bg-success/12 text-success"
-                : "bg-destructive/12 text-destructive",
+              "inline-flex items-center gap-0.5 font-medium tabular [&_svg]:size-3.5",
+              positive ? "text-success" : "text-destructive",
             )}
           >
             {positive ? <ArrowUpRight /> : <ArrowDownRight />}
@@ -67,17 +54,17 @@ export function StatCard({
           {changeLabel && (
             <span className="text-muted-foreground">{changeLabel}</span>
           )}
-        </div>
+        </p>
       )}
       {children}
     </Card>
   );
 }
 
-/** Animated count-up number. */
+/** Number that eases up to its value once scrolled into view. */
 export function CountUp({
   value,
-  duration = 1.2,
+  duration = 1.4,
   decimals = 0,
   prefix = "",
   suffix = "",
@@ -88,41 +75,38 @@ export function CountUp({
   prefix?: string;
   suffix?: string;
 }) {
-  const [display, setDisplay] = React.useState(0);
   const ref = React.useRef<HTMLSpanElement>(null);
-  const started = React.useRef(false);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const reduce = useReducedMotion();
+  const format = React.useCallback(
+    (n: number) =>
+      `${prefix}${n.toLocaleString("en-US", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })}${suffix}`,
+    [prefix, suffix, decimals],
+  );
 
   React.useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const start = performance.now();
-          const tick = (now: number) => {
-            const p = Math.min((now - start) / (duration * 1000), 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            setDisplay(value * eased);
-            if (p < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-        }
+    if (!el || !inView) return;
+    if (reduce) {
+      el.textContent = format(value);
+      return;
+    }
+    const controls = animate(0, value, {
+      duration,
+      ease: [0.28, 0.11, 0.32, 1],
+      onUpdate: (n) => {
+        el.textContent = format(n);
       },
-      { threshold: 0.3 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [value, duration]);
+    });
+    return () => controls.stop();
+  }, [inView, value, duration, reduce, format]);
 
   return (
-    <span ref={ref}>
-      {prefix}
-      {display.toLocaleString("en-US", {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      })}
-      {suffix}
+    <span ref={ref} className="tabular">
+      {format(0)}
     </span>
   );
 }

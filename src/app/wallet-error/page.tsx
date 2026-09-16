@@ -1,68 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Wallet,
-  Lock,
-  CheckCircle2,
-  Download,
-  ArrowRight,
-} from "lucide-react";
-import { StatusPage } from "@/components/status-page";
+import { Wallet, Lock, CheckCircle2, Download } from "lucide-react";
+import { StatusChecklist, StatusPage } from "@/components/status-page";
 import { Button } from "@/components/ui/button";
 import { WalletButton } from "@/components/wallet-button";
 
 const fixes = [
-  {
-    icon: Lock,
-    text: "Unlock your wallet extension and make sure it's on the Solana network.",
-  },
-  {
-    icon: CheckCircle2,
-    text: "Approve the connection request in the wallet pop-up.",
-  },
-  {
-    icon: Download,
-    text: "Install a supported wallet (Phantom, Solflare) if you don't have one.",
-  },
+  { icon: Lock, text: "Unlock your wallet extension and make sure it is set to Solana." },
+  { icon: CheckCircle2, text: "Approve the connection request when the wallet window opens." },
+  { icon: Download, text: "No wallet yet? Install Phantom or Solflare, then try again." },
 ];
 
 export default function WalletErrorPage() {
   return (
     <StatusPage
       icon={Wallet}
-      title="Wallet connection failed"
-      description="We couldn't connect to your Solana wallet. This usually happens when the request was dismissed or the extension is locked."
-      accent="secondary"
+      title="Couldn't connect your wallet."
+      description="The request was dismissed or the extension is locked. Nothing was changed."
       actions={
         <>
           <WalletButton size="lg" />
           <Link href="/dashboard">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-              Continue without wallet
-              <ArrowRight />
+            <Button variant="outline" size="lg" className="w-full">
+              Continue without a wallet
             </Button>
           </Link>
         </>
       }
     >
-      <div className="rounded-xl border border-border bg-card/60 p-4 text-left backdrop-blur">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Common fixes
-        </p>
-        <ul className="space-y-3">
-          {fixes.map((fix, i) => (
-            <li key={i} className="flex items-start gap-3">
-              <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-lg bg-secondary/12 text-secondary">
-                <fix.icon className="size-3.5" />
-              </span>
-              <span className="text-sm leading-relaxed text-foreground/80">
-                {fix.text}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <StatusChecklist title="Things to check" items={fixes} />
     </StatusPage>
   );
 }

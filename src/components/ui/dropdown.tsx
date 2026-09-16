@@ -24,8 +24,13 @@ export function Dropdown({
         setOpen(false);
       }
     };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
   }, []);
 
   return (
@@ -34,14 +39,15 @@ export function Dropdown({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.97 }}
-            transition={{ duration: 0.16 }}
+            role="menu"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.14 }}
             onClick={() => setOpen(false)}
             className={cn(
-              "absolute z-50 mt-2 min-w-48 overflow-hidden rounded-xl border border-border bg-popover p-1.5 shadow-lg",
-              align === "end" ? "right-0" : "left-0",
+              "glass-strong absolute z-50 mt-2 min-w-52 overflow-hidden rounded-xl border border-border p-1 shadow-lg",
+              align === "end" ? "right-0 origin-top-right" : "left-0 origin-top-left",
               className,
             )}
           >
@@ -66,12 +72,13 @@ export function DropdownItem({
 }) {
   return (
     <button
+      role="menuitem"
       onClick={onClick}
       className={cn(
-        "flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition-colors [&_svg]:size-4 [&_svg]:text-muted-foreground",
+        "flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-left text-[13px] transition-colors [&_svg]:size-4 [&_svg]:stroke-[1.75]",
         destructive
-          ? "text-destructive hover:bg-destructive/10 [&_svg]:text-destructive"
-          : "text-foreground hover:bg-muted",
+          ? "text-destructive hover:bg-destructive/10"
+          : "text-foreground hover:bg-foreground/[0.06] [&_svg]:text-muted-foreground",
         className,
       )}
     >
@@ -82,12 +89,12 @@ export function DropdownItem({
 
 export function DropdownLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="px-2.5 py-1.5 text-xs font-medium text-muted-foreground">
+    <p className="px-2.5 py-1.5 text-[11px] font-medium text-muted-foreground">
       {children}
     </p>
   );
 }
 
 export function DropdownSeparator() {
-  return <div className="my-1 h-px bg-border" />;
+  return <div className="mx-2 my-1 h-px bg-border" />;
 }

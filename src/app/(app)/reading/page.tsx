@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
+  Check,
   Search,
   Star,
   Clock,
@@ -12,8 +13,6 @@ import {
   Target,
   CheckCircle2,
   ArrowRight,
-  Flame,
-  Sparkles,
 } from "lucide-react";
 import { books, bookCategories, dashboardStats, type Book } from "@/lib/mock-data";
 import { cn, formatToken } from "@/lib/utils";
@@ -47,8 +46,8 @@ function BookCover({
       )}
       style={{ backgroundImage: cover }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-white/10" />
-      <div className="pointer-events-none absolute -right-6 -top-6 size-24 rounded-full bg-white/15 blur-2xl" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-black/25 to-transparent" />
       {children}
     </div>
   );
@@ -59,26 +58,21 @@ function BookCard({ book }: { book: Book }) {
   const label = book.completed ? "Completed" : started ? "Continue" : "Read";
 
   return (
-    <motion.div
-      whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 300, damping: 24 }}
-      className="group h-full"
-    >
+    <div className="group h-full">
       <Card className="flex h-full flex-col overflow-hidden card-hover">
         <BookCover cover={book.cover} className="h-40 p-3">
           <div className="absolute left-3 top-3">
-            <Badge variant="solid" className="shadow-sm backdrop-blur">
-              <Coins className="size-3" />
+            <span className="inline-flex items-center rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-medium text-black tabular backdrop-blur">
               {formatToken(book.reward)}
-            </Badge>
+            </span>
           </div>
           {book.completed && (
-            <div className="absolute right-3 top-3 flex size-7 items-center justify-center rounded-full bg-success text-white shadow-sm">
-              <CheckCircle2 className="size-4" />
+            <div className="absolute right-3 top-3 flex size-6 items-center justify-center rounded-full bg-white text-black">
+              <Check className="size-3.5" strokeWidth={2.5} />
             </div>
           )}
-          <div className="relative z-10 flex items-center gap-1 rounded-md bg-black/30 px-2 py-1 text-xs font-medium text-white backdrop-blur">
-            <Star className="size-3 fill-warning text-warning" />
+          <div className="relative z-10 flex items-center gap-1 text-xs font-medium text-white/90 tabular">
+            <Star className="size-3 fill-current" />
             {book.rating.toFixed(1)}
           </div>
         </BookCover>
@@ -148,7 +142,7 @@ function BookCard({ book }: { book: Book }) {
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 }
 
@@ -187,7 +181,7 @@ export default function ReadingPage() {
         description="Read, learn, and earn rewards"
         actions={
           <div className="flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 shadow-sm">
-            <span className="flex size-6 items-center justify-center rounded-full bg-primary/12 text-primary">
+            <span className="flex size-6 items-center justify-center rounded-full bg-foreground/[0.05] text-foreground">
               <Target className="size-3.5" />
             </span>
             <span className="text-sm font-medium">
@@ -303,10 +297,10 @@ export default function ReadingPage() {
                   key={cat}
                   onClick={() => setCategory(cat)}
                   className={cn(
-                    "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all",
+                    "rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors",
                     active
-                      ? "border-transparent bg-brand-gradient text-white shadow-sm"
-                      : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground",
+                      ? "border-transparent bg-primary text-primary-foreground"
+                      : "border-border bg-card text-muted-foreground hover:border-foreground/25 hover:text-foreground",
                   )}
                 >
                   {cat}
@@ -320,7 +314,7 @@ export default function ReadingPage() {
       {/* Grid */}
       <Reveal delay={2}>
         {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 xl:grid-cols-4">
             {filtered.map((book) => (
               <BookCard key={book.id} book={book} />
             ))}
@@ -347,8 +341,8 @@ export default function ReadingPage() {
       </Reveal>
 
       {/* Completed + Daily goal */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <Reveal className="lg:col-span-2">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+        <Reveal className="xl:col-span-2">
           <section className="space-y-4">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="size-4 text-success" />
@@ -409,22 +403,19 @@ export default function ReadingPage() {
         {/* Daily reading goal */}
         <Reveal delay={1}>
           <Card className="relative overflow-hidden">
-            <div className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-brand-gradient opacity-10 blur-3xl" />
             <CardContent className="flex flex-col items-center gap-4 p-6 text-center">
               <div className="flex w-full items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
-                  <Sparkles className="size-4 text-primary" />
-                  Daily reading goal
+                <span className="text-[15px] font-semibold">
+                  Daily goal
                 </span>
-                <Badge variant="warning" className="gap-1">
-                  <Flame className="size-3" />
-                  {dashboardStats.streak}d streak
-                </Badge>
+                <span className="text-xs text-muted-foreground tabular">
+                  {dashboardStats.streak}-day streak
+                </span>
               </div>
 
               <CircularProgress value={goalPct} size={140} strokeWidth={12}>
                 <div className="flex flex-col items-center">
-                  <span className="text-2xl font-bold tracking-tight">
+                  <span className="text-2xl font-semibold tracking-tight">
                     {dashboardStats.booksReadToday}
                     <span className="text-base text-muted-foreground">
                       /{dashboardStats.dailyGoal}
@@ -437,8 +428,7 @@ export default function ReadingPage() {
               </CircularProgress>
 
               <p className="text-sm text-muted-foreground">
-                {dashboardStats.booksRemaining} more to hit today&apos;s goal and
-                keep your streak alive.
+                {`${dashboardStats.booksRemaining} more to reach today's goal and keep your streak.`}
               </p>
 
               <div className="grid w-full grid-cols-2 gap-3 pt-1">
@@ -447,8 +437,8 @@ export default function ReadingPage() {
                   <p className="text-lg font-semibold">{goalPct}%</p>
                 </div>
                 <div className="rounded-lg border border-border bg-muted/40 p-3 text-left">
-                  <p className="text-xs text-muted-foreground">Est. reward</p>
-                  <p className="text-lg font-semibold text-primary">
+                  <p className="text-xs text-muted-foreground">Estimated reward</p>
+                  <p className="text-lg font-semibold tabular">
                     {formatToken(0.12)}
                   </p>
                 </div>

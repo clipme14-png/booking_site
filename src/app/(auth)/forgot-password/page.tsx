@@ -43,8 +43,8 @@ export default function ForgotPasswordPage() {
       {!sent ? (
         <motion.div key="form" {...fade}>
           <div className="mb-8">
-            <h1 className="text-2xl font-bold tracking-tight">Reset your password</h1>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.025em]">Reset your password</h1>
+            <p className="mt-2 text-[15px] text-muted-foreground">
               Enter the email associated with your account and we&apos;ll send you a
               secure link to reset your password.
             </p>
@@ -72,7 +72,7 @@ export default function ForgotPasswordPage() {
 
           <p className="mt-8 text-center text-sm text-muted-foreground">
             Remembered it?{" "}
-            <Link href="/login" className="font-semibold text-primary hover:underline">
+            <Link href="/login" className="text-secondary hover:underline">
               Back to login
             </Link>
           </p>
@@ -90,8 +90,8 @@ export default function ForgotPasswordPage() {
                 <MailCheck className="size-8" />
               </motion.div>
 
-              <h1 className="mt-5 text-xl font-bold tracking-tight">Check your email</h1>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <h1 className="mt-5 text-xl font-semibold tracking-tight">Check your email</h1>
+              <p className="mt-2 text-[15px] text-muted-foreground">
                 We sent a password reset link to
               </p>
               <p className="mt-0.5 text-sm font-semibold text-foreground">{email}</p>

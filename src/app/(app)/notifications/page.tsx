@@ -19,7 +19,6 @@ import {
   Circle,
 } from "lucide-react";
 import { PageHeader } from "@/components/app/page-header";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -35,11 +34,11 @@ const categoryMeta: Record<
   Category,
   { label: string; icon: React.ReactNode; wrap: string }
 > = {
-  reward: { label: "Rewards", icon: <Gift />, wrap: "bg-accent/12 text-accent" },
-  referral: { label: "Referrals", icon: <Users />, wrap: "bg-secondary/12 text-secondary" },
-  board: { label: "Board", icon: <Trophy />, wrap: "bg-primary/12 text-primary" },
-  announcement: { label: "Announcements", icon: <Megaphone />, wrap: "bg-warning/15 text-warning" },
-  wallet: { label: "Wallet", icon: <Wallet />, wrap: "bg-secondary/12 text-secondary" },
+  reward: { label: "Rewards", icon: <Gift />, wrap: "bg-foreground/[0.05] text-foreground" },
+  referral: { label: "Referrals", icon: <Users />, wrap: "bg-foreground/[0.05] text-foreground" },
+  board: { label: "Board", icon: <Trophy />, wrap: "bg-foreground/[0.05] text-foreground" },
+  announcement: { label: "Announcements", icon: <Megaphone />, wrap: "bg-foreground/[0.05] text-foreground" },
+  wallet: { label: "Wallet", icon: <Wallet />, wrap: "bg-foreground/[0.05] text-foreground" },
   security: { label: "Security", icon: <ShieldAlert />, wrap: "bg-destructive/12 text-destructive" },
 };
 
@@ -74,11 +73,11 @@ function NotificationRow({
         "group relative flex gap-3.5 rounded-xl border border-border p-4 transition-colors sm:gap-4",
         n.read
           ? "bg-card hover:bg-muted/40"
-          : "border-primary/20 bg-primary/5 hover:bg-primary/[0.07]",
+          : "border-border bg-card hover:bg-muted/40",
       )}
     >
       {!n.read && (
-        <span className="absolute inset-y-3 left-0 w-[3px] rounded-full bg-brand-gradient" />
+        <span className="absolute left-1.5 top-1/2 size-2 -translate-y-1/2 rounded-full bg-secondary sm:left-2" aria-label="Unread" />
       )}
       <div
         className={cn(
@@ -222,18 +221,18 @@ export default function NotificationsPage() {
               key={f.value}
               onClick={() => setActive(f.value)}
               className={cn(
-                "relative inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
+                "relative inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors",
                 isActive
-                  ? "border-transparent bg-brand-gradient text-white shadow-sm"
-                  : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground",
+                  ? "border-transparent bg-primary text-primary-foreground"
+                  : "border-border bg-card text-muted-foreground hover:border-foreground/25 hover:text-foreground",
               )}
             >
               {f.label}
               {c > 0 && (
                 <span
                   className={cn(
-                    "inline-flex min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold",
-                    isActive ? "bg-white/25 text-white" : "bg-primary/12 text-primary",
+                    "inline-flex min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-semibold",
+                    isActive ? "bg-primary-foreground/20 text-primary-foreground" : "bg-foreground/[0.06] text-foreground",
                   )}
                 >
                   {c}

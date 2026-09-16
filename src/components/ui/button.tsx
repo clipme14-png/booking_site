@@ -6,33 +6,37 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97] select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  [
+    "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full font-medium select-none",
+    "transition-[background-color,color,border-color,opacity,transform] duration-200 ease-[var(--ease-apple)]",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+    "disabled:pointer-events-none disabled:opacity-40 active:scale-[0.98]",
+    "[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:stroke-[1.75]",
+  ].join(" "),
   {
     variants: {
       variant: {
-        default:
-          "bg-brand-gradient text-white shadow-sm hover:shadow-glow hover:brightness-110",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:brightness-110",
-        accent:
-          "bg-accent text-accent-foreground shadow-sm hover:brightness-110",
+        default: "bg-primary text-primary-foreground hover:bg-primary/85",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/88",
+        accent: "bg-accent text-accent-foreground hover:bg-accent/88",
         outline:
-          "border border-border bg-card/50 text-foreground hover:bg-muted hover:border-primary/40",
+          "border border-input bg-transparent text-foreground hover:bg-muted hover:border-foreground/20",
         ghost: "text-foreground hover:bg-muted",
-        subtle: "bg-muted text-foreground hover:bg-border/70",
+        subtle: "bg-muted text-foreground hover:bg-foreground/10",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:brightness-110",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/88",
+        link: "h-auto rounded-none px-0 text-secondary hover:underline underline-offset-4",
       },
       size: {
-        sm: "h-9 px-3.5 text-[13px]",
-        default: "h-11 px-5",
-        lg: "h-12 px-7 text-base",
-        xl: "h-14 px-8 text-base rounded-xl",
-        icon: "h-10 w-10",
-        "icon-sm": "h-9 w-9",
+        sm: "h-8 px-3.5 text-[13px]",
+        default: "h-10 px-5 text-sm",
+        lg: "h-11 px-6 text-[15px]",
+        xl: "h-12 px-7 text-[17px]",
+        icon: "size-10",
+        "icon-sm": "size-8",
       },
     },
+    compoundVariants: [{ variant: "link", className: "px-0 h-auto" }],
     defaultVariants: { variant: "default", size: "default" },
   },
 );

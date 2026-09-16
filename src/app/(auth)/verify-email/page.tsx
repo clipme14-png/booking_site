@@ -98,10 +98,10 @@ export default function VerifyEmailPage() {
   return (
     <motion.div variants={container} initial="hidden" animate="visible">
       <motion.div variants={item} className="mb-8 text-center">
-        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/12 text-primary">
+        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-foreground/[0.05] text-foreground">
           <MailCheck className="size-7" />
         </div>
-        <h1 className="mt-5 text-2xl font-bold tracking-tight">Verify your email</h1>
+        <h1 className="mt-5 text-[28px] font-semibold leading-tight tracking-[-0.025em]">Verify your email</h1>
         <p className="mx-auto mt-2 max-w-xs text-sm text-muted-foreground">
           We sent a 6-digit code to{" "}
           <span className="font-medium text-foreground">{currentUser.email}</span>.
@@ -128,8 +128,8 @@ export default function VerifyEmailPage() {
               onFocus={(e) => e.target.select()}
               className={cn(
                 "size-12 rounded-xl border bg-card text-center text-lg font-semibold shadow-xs transition-all sm:size-13",
-                "focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25",
-                digit ? "border-primary/50" : "border-input",
+                "focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring/20",
+                digit ? "border-foreground/25" : "border-input",
               )}
             />
           ))}
@@ -152,7 +152,7 @@ export default function VerifyEmailPage() {
           <button
             type="button"
             onClick={resend}
-            className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline"
+            className="inline-flex items-center gap-1.5 text-secondary hover:underline"
           >
             <RotateCcw className="size-4" />
             Resend code
@@ -162,7 +162,7 @@ export default function VerifyEmailPage() {
 
       <motion.p variants={item} className="mt-8 text-center text-sm text-muted-foreground">
         Wrong email?{" "}
-        <Link href="/register" className="font-semibold text-primary hover:underline">
+        <Link href="/register" className="text-secondary hover:underline">
           Change it
         </Link>
       </motion.p>

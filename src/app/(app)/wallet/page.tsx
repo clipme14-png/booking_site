@@ -13,7 +13,6 @@ import {
   Plus,
   CheckCircle2,
   Activity,
-  ArrowDownLeft,
   Users,
 } from "lucide-react";
 import { PageHeader } from "@/components/app/page-header";
@@ -35,23 +34,23 @@ const typeMeta: Record<
   Transaction["type"],
   { label: string; icon: React.ReactNode; badge: string }
 > = {
-  reward: { label: "Reward", icon: <Gift />, badge: "bg-accent/12 text-accent" },
+  reward: { label: "Reward", icon: <Gift />, badge: "bg-foreground/[0.05] text-foreground" },
   withdrawal: {
     label: "Withdrawal",
     icon: <ArrowUpRight />,
-    badge: "bg-warning/15 text-warning",
+    badge: "bg-foreground/[0.05] text-foreground",
   },
   deposit: {
     label: "Deposit",
     icon: <ArrowDownToLine />,
-    badge: "bg-secondary/12 text-secondary",
+    badge: "bg-foreground/[0.05] text-foreground",
   },
   subscription: {
     label: "Subscription",
     icon: <Coins />,
-    badge: "bg-primary/12 text-primary",
+    badge: "bg-foreground/[0.05] text-foreground",
   },
-  referral: { label: "Referral", icon: <Users />, badge: "bg-secondary/12 text-secondary" },
+  referral: { label: "Referral", icon: <Users />, badge: "bg-foreground/[0.05] text-foreground" },
 };
 
 const statusVariant: Record<
@@ -85,19 +84,19 @@ export default function WalletPage() {
       label: "Available",
       value: formatToken(balance - dashboardStats.pendingRewards),
       icon: <Coins />,
-      tint: "bg-accent/12 text-accent",
+      tint: "bg-foreground/[0.05] text-foreground",
     },
     {
       label: "Pending",
       value: formatToken(dashboardStats.pendingRewards),
       icon: <Clock />,
-      tint: "bg-warning/15 text-warning",
+      tint: "bg-foreground/[0.05] text-foreground",
     },
     {
       label: "Total earned",
       value: formatToken(dashboardStats.totalEarnings),
       icon: <Gift />,
-      tint: "bg-primary/12 text-primary",
+      tint: "bg-foreground/[0.05] text-foreground",
     },
   ];
 
@@ -109,36 +108,33 @@ export default function WalletPage() {
         actions={<WalletButton />}
       />
 
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
         {/* Balance card */}
-        <Reveal className="lg:col-span-2">
-          <Card className="relative overflow-hidden border-0 bg-brand-gradient text-white shadow-lg">
-            <div className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-white/10 blur-2xl" />
-            <div className="pointer-events-none absolute -bottom-20 -left-10 size-56 rounded-full bg-white/10 blur-3xl" />
+        <Reveal className="xl:col-span-2">
+          <Card className="surface-ink relative h-full overflow-hidden">
             <CardContent className="relative p-6 sm:p-7">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm font-medium text-white/80">
-                  <WalletIcon className="size-4" />
+                <div className="text-[13px] font-medium text-white/55">
                   Total balance
                 </div>
-                <Badge className="border-white/25 bg-white/15 text-white">
+                <Badge className="bg-white/10 text-white/80">
                   Solana Devnet
                 </Badge>
               </div>
 
               <div className="mt-5 flex items-end gap-3">
-                <span className="text-4xl font-bold tracking-tight sm:text-5xl">
+                <span className="text-[44px] font-semibold leading-none tracking-[-0.035em] tabular sm:text-[56px]">
                   {balance.toFixed(2)}
                 </span>
-                <span className="mb-1 text-lg font-semibold text-white/80">SOL</span>
+                <span className="mb-1 text-lg font-medium text-white/55">SOL</span>
               </div>
-              <p className="mt-1 text-sm text-white/70">
-                ≈ {formatUsd(balance * SOL_USD)}
+              <p className="mt-2 text-[13px] text-white/55 tabular">
+                About {formatUsd(balance * SOL_USD)}
               </p>
 
               <button
                 onClick={copyAddress}
-                className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white/12 px-3 py-2 font-mono text-sm text-white/90 transition-colors hover:bg-white/20"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 font-mono text-xs text-white/80 transition-colors hover:bg-white/15"
                 aria-label="Copy wallet address"
               >
                 {shortAddress(currentUser.wallet, 6)}
@@ -148,7 +144,7 @@ export default function WalletPage() {
               <div className="mt-6 flex flex-wrap gap-2.5">
                 <Button
                   variant="outline"
-                  className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                  className="border-white/20 bg-transparent text-white hover:border-white/40 hover:bg-white/10 hover:text-white"
                   onClick={() =>
                     toast({ title: "Deposit", description: "Opening deposit flow…", variant: "default" })
                   }
@@ -158,7 +154,7 @@ export default function WalletPage() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                  className="border-white/20 bg-transparent text-white hover:border-white/40 hover:bg-white/10 hover:text-white"
                   onClick={() =>
                     toast({ title: "Withdraw", description: "Opening withdrawal flow…", variant: "default" })
                   }
@@ -168,7 +164,7 @@ export default function WalletPage() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                  className="border-white/20 bg-transparent text-white hover:border-white/40 hover:bg-white/10 hover:text-white"
                   onClick={() =>
                     toast({ title: "Send", description: "Opening send flow…", variant: "default" })
                   }
@@ -230,7 +226,7 @@ export default function WalletPage() {
                   <p className="text-sm font-medium text-muted-foreground">
                     {s.label}
                   </p>
-                  <p className="text-xl font-bold tracking-tight">{s.value}</p>
+                  <p className="text-xl font-semibold tracking-tight">{s.value}</p>
                 </div>
               </div>
             </Card>
@@ -238,9 +234,9 @@ export default function WalletPage() {
         </div>
       </Reveal>
 
-      <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
+      <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-3">
         {/* Wallet activity */}
-        <Reveal delay={2} className="lg:col-span-2">
+        <Reveal delay={2} className="xl:col-span-2">
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <div>
@@ -320,7 +316,7 @@ export default function WalletPage() {
                   className="flex items-center justify-between rounded-xl border border-border p-3.5"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-primary/12 text-primary">
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-foreground/[0.05] text-foreground">
                       <WalletIcon className="size-4.5" />
                     </div>
                     <div>

@@ -27,7 +27,7 @@ export function WalletButton({
         onClick={() => setVisible(true)}
       >
         <Wallet />
-        Connect Wallet
+        Connect wallet
       </Button>
     );
   }
@@ -37,16 +37,16 @@ export function WalletButton({
   return (
     <Dropdown
       trigger={
-        <Button size={size} variant="outline" className="font-mono">
-          <span className="size-2 rounded-full bg-success" />
+        <Button size={size} variant="outline" className="font-mono text-[13px]">
+          <span className="size-1.5 rounded-full bg-success" />
           {shortAddress(address)}
-          <ChevronDown className="opacity-60" />
+          <ChevronDown className="opacity-50" />
         </Button>
       }
     >
       <div className="px-2.5 py-2">
-        <p className="text-xs text-muted-foreground">Connected</p>
-        <p className="mt-0.5 font-mono text-sm">{shortAddress(address, 6)}</p>
+        <p className="text-[11px] text-muted-foreground">Connected</p>
+        <p className="mt-0.5 font-mono text-[13px]">{shortAddress(address, 6)}</p>
       </div>
       <DropdownSeparator />
       <DropdownItem

@@ -132,12 +132,12 @@ export type Book = {
 };
 
 const covers = [
-  "linear-gradient(135deg,#7c3aed,#2563eb)",
-  "linear-gradient(135deg,#2563eb,#06b6d4)",
-  "linear-gradient(135deg,#16a34a,#65a30d)",
-  "linear-gradient(135deg,#db2777,#7c3aed)",
-  "linear-gradient(135deg,#ea580c,#db2777)",
-  "linear-gradient(135deg,#0891b2,#4f46e5)",
+  "linear-gradient(160deg,#27324a 0%,#121826 100%)",
+  "linear-gradient(160deg,#5b2a2c 0%,#2a1113 100%)",
+  "linear-gradient(160deg,#2b4034 0%,#111c16 100%)",
+  "linear-gradient(160deg,#48484c 0%,#1c1c1e 100%)",
+  "linear-gradient(160deg,#6e5a3f 0%,#34291b 100%)",
+  "linear-gradient(160deg,#34495c 0%,#161f29 100%)",
 ];
 
 export const books: Book[] = [
@@ -191,12 +191,12 @@ export type BoardTier = {
 };
 
 export const boards: BoardTier[] = [
-  { level: 1, name: "Novice", requirement: "Read 10 books", reward: "0.5 SOL", status: "completed", color: "#94a3b8" },
-  { level: 2, name: "Apprentice", requirement: "Read 30 books", reward: "1.2 SOL", status: "completed", color: "#22c55e" },
-  { level: 3, name: "Adept", requirement: "Read 75 books", reward: "3 SOL", status: "completed", color: "#06b6d4" },
-  { level: 4, name: "Scholar", requirement: "Read 150 books", reward: "6 SOL + NFT", status: "current", color: "#7c3aed" },
-  { level: 5, name: "Sage", requirement: "Read 300 books", reward: "15 SOL + NFT", status: "locked", color: "#db2777" },
-  { level: 6, name: "Luminary", requirement: "Read 600 books", reward: "40 SOL + Governance", status: "locked", color: "#f59e0b" },
+  { level: 1, name: "Novice", requirement: "Read 10 books", reward: "0.5 SOL", status: "completed", color: "#8e8e93" },
+  { level: 2, name: "Apprentice", requirement: "Read 30 books", reward: "1.2 SOL", status: "completed", color: "#6f8f78" },
+  { level: 3, name: "Adept", requirement: "Read 75 books", reward: "3 SOL", status: "completed", color: "#5b7fa6" },
+  { level: 4, name: "Scholar", requirement: "Read 150 books", reward: "6 SOL + NFT", status: "current", color: "#2f6fde" },
+  { level: 5, name: "Sage", requirement: "Read 300 books", reward: "15 SOL + NFT", status: "locked", color: "#8a74ad" },
+  { level: 6, name: "Luminary", requirement: "Read 600 books", reward: "40 SOL + Governance", status: "locked", color: "#b8955a" },
 ];
 
 export type LeaderboardEntry = {
@@ -280,10 +280,10 @@ export const treasury = {
   totalDistributed: 512400,
   activeUsers: 24810,
   distribution: [
-    { label: "Reading Rewards", value: 45, color: "#7c3aed" },
-    { label: "Referral Pool", value: 22, color: "#2563eb" },
-    { label: "Board Rewards", value: 18, color: "#16a34a" },
-    { label: "Reserve", value: 15, color: "#f59e0b" },
+    { label: "Reading Rewards", value: 45, color: "#2f6fde" },
+    { label: "Referral Pool", value: 22, color: "#b8955a" },
+    { label: "Board Rewards", value: 18, color: "#6f8f78" },
+    { label: "Reserve", value: 15, color: "#8e8e93" },
   ],
   monthlyDistribution: [32, 38, 41, 45, 52, 48, 58, 61, 67, 72, 78, 84],
 };

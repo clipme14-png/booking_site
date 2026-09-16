@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CreditCard, RotateCcw, LifeBuoy } from "lucide-react";
+import { CreditCard } from "lucide-react";
 import { StatusPage } from "@/components/status-page";
 import { Button } from "@/components/ui/button";
 
@@ -9,33 +9,29 @@ export default function SubscriptionErrorPage() {
   return (
     <StatusPage
       icon={CreditCard}
-      title="Payment failed"
-      description="Your SOL transaction didn't go through, so your subscription wasn't activated. No funds were deducted from your wallet."
+      title="Payment didn't go through."
+      description="Your subscription wasn't activated, and nothing was taken from your wallet."
       accent="destructive"
       actions={
         <>
           <Link href="/plans">
-            <Button size="lg" className="w-full sm:w-auto">
-              <RotateCcw />
+            <Button size="lg" className="w-full">
               Try again
             </Button>
           </Link>
-          <Link href="/support">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-              <LifeBuoy />
+          <a href="mailto:support@quantuminvest.io">
+            <Button variant="outline" size="lg" className="w-full">
               Contact support
             </Button>
-          </Link>
+          </a>
         </>
       }
     >
-      <div className="rounded-xl border border-destructive/20 bg-destructive/10 p-4 text-left">
-        <p className="text-xs font-semibold uppercase tracking-wide text-destructive">
-          Reason
-        </p>
-        <p className="mt-1.5 text-sm leading-relaxed text-foreground/80">
-          Transaction rejected — insufficient SOL balance to cover the plan
-          price plus network fees.
+      <div className="rounded-2xl bg-background p-5 text-left">
+        <p className="text-[13px] font-semibold">Reason</p>
+        <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
+          The wallet balance didn&apos;t cover the plan price plus the network fee.
+          Add SOL to your wallet, then try again.
         </p>
       </div>
     </StatusPage>

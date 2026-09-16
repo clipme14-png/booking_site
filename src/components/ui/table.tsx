@@ -22,7 +22,7 @@ export function THead({
   return (
     <thead
       className={cn(
-        "border-b border-border text-xs uppercase tracking-wide text-muted-foreground",
+        "border-b border-border text-xs text-muted-foreground",
         className,
       )}
       {...props}
@@ -43,7 +43,7 @@ export function TR({
 }: React.HTMLAttributes<HTMLTableRowElement>) {
   return (
     <tr
-      className={cn("transition-colors hover:bg-muted/50", className)}
+      className={cn("transition-colors hover:bg-foreground/[0.025]", className)}
       {...props}
     />
   );
@@ -55,7 +55,7 @@ export function TH({
 }: React.ThHTMLAttributes<HTMLTableCellElement>) {
   return (
     <th
-      className={cn("px-4 py-3 text-left font-medium", className)}
+      className={cn("px-4 py-2.5 text-left font-medium", className)}
       {...props}
     />
   );
@@ -65,5 +65,5 @@ export function TD({
   className,
   ...props
 }: React.TdHTMLAttributes<HTMLTableCellElement>) {
-  return <td className={cn("px-4 py-3.5 align-middle", className)} {...props} />;
+  return <td className={cn("px-4 py-3.5 align-middle tabular", className)} {...props} />;
 }

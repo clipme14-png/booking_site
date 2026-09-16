@@ -3,6 +3,14 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+const fieldBase = [
+  "w-full rounded-xl border border-input bg-card text-[15px] text-foreground",
+  "transition-[border-color,box-shadow] duration-200",
+  "placeholder:text-muted-foreground/70",
+  "focus-visible:outline-none focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/15",
+  "disabled:cursor-not-allowed disabled:opacity-50",
+].join(" ");
+
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
@@ -14,7 +22,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="relative flex items-center">
         {icon && (
-          <span className="pointer-events-none absolute left-3.5 text-muted-foreground [&_svg]:size-4">
+          <span className="pointer-events-none absolute left-3.5 text-muted-foreground [&_svg]:size-4 [&_svg]:stroke-[1.75]">
             {icon}
           </span>
         )}
@@ -22,10 +30,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           type={type}
           ref={ref}
           className={cn(
-            "flex h-11 w-full rounded-lg border border-input bg-card px-3.5 py-2 text-sm shadow-xs transition-all",
-            "placeholder:text-muted-foreground",
-            "focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25",
-            "disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-11 px-3.5 py-2",
+            fieldBase,
             icon && "pl-10",
             trailing && "pr-10",
             className,
@@ -50,7 +56,7 @@ export const Label = React.forwardRef<
   <label
     ref={ref}
     className={cn(
-      "text-sm font-medium leading-none text-foreground",
+      "text-[13px] font-medium leading-none text-foreground",
       className,
     )}
     {...props}
@@ -64,10 +70,7 @@ export const Textarea = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <textarea
     ref={ref}
-    className={cn(
-      "flex min-h-24 w-full rounded-lg border border-input bg-card px-3.5 py-2.5 text-sm shadow-xs transition-all placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25 disabled:opacity-50",
-      className,
-    )}
+    className={cn("flex min-h-24 px-3.5 py-2.5", fieldBase, className)}
     {...props}
   />
 ));

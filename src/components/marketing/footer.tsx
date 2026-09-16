@@ -7,7 +7,7 @@ const columns = [
     links: [
       { label: "Features", href: "/#features" },
       { label: "Plans", href: "/#plans" },
-      { label: "Reading Center", href: "/reading" },
+      { label: "Library", href: "/reading" },
       { label: "Treasury", href: "/treasury" },
     ],
   },
@@ -17,61 +17,49 @@ const columns = [
       { label: "Roadmap", href: "/#roadmap" },
       { label: "About", href: "#" },
       { label: "Careers", href: "#" },
-      { label: "Blog", href: "#" },
+      { label: "Journal", href: "#" },
     ],
   },
   {
-    title: "Resources",
+    title: "Support",
     links: [
-      { label: "Docs", href: "#" },
-      { label: "FAQ", href: "/#faq" },
-      { label: "Support", href: "#" },
-      { label: "Community", href: "#" },
+      { label: "Documentation", href: "#" },
+      { label: "Questions", href: "/#faq" },
+      { label: "Contact", href: "#" },
+      { label: "Status", href: "#" },
     ],
   },
   {
-    title: "Legal",
+    title: "Community",
     links: [
-      { label: "Privacy", href: "#" },
-      { label: "Terms", href: "#" },
-      { label: "Security", href: "#" },
-      { label: "Cookies", href: "#" },
+      { label: "X", href: "#" },
+      { label: "Discord", href: "#" },
+      { label: "Telegram", href: "#" },
+      { label: "GitHub", href: "#" },
     ],
   },
 ];
 
 export function MarketingFooter() {
   return (
-    <footer className="border-t border-border bg-card/40">
-      <div className="mx-auto max-w-7xl px-4 py-14 lg:px-8">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
-          <div className="col-span-2">
-            <Logo />
-            <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              The premium learn-to-earn platform on Solana. Turn knowledge into
-              wealth, one book at a time.
-            </p>
-            <div className="mt-5 flex gap-3">
-              {["X", "Discord", "Telegram", "GitHub"].map((s) => (
-                <a
-                  key={s}
-                  href="#"
-                  className="flex size-9 items-center justify-center rounded-lg border border-border text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-                >
-                  {s[0]}
-                </a>
-              ))}
-            </div>
-          </div>
+    <footer className="bg-background text-xs text-muted-foreground">
+      <div className="mx-auto max-w-[1080px] px-5 pb-10 pt-12">
+        <p className="max-w-[60rem] border-b border-border pb-6 leading-relaxed">
+          Rewards are paid in SOL and vary with plan, quiz performance and pool size.
+          Digital assets are volatile and their value can fall as well as rise.
+          Nothing on this site is investment advice.
+        </p>
+
+        <div className="grid grid-cols-2 gap-8 py-8 sm:grid-cols-4">
           {columns.map((col) => (
             <div key={col.title}>
-              <h4 className="text-sm font-semibold">{col.title}</h4>
-              <ul className="mt-4 space-y-2.5">
+              <h4 className="font-semibold text-foreground">{col.title}</h4>
+              <ul className="mt-3 space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      className="transition-colors hover:text-foreground hover:underline"
                     >
                       {link.label}
                     </Link>
@@ -82,13 +70,18 @@ export function MarketingFooter() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 sm:flex-row">
-          <p className="text-sm text-muted-foreground">
-            © 2026 Quantum Invest. All rights reserved.
-          </p>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="size-2 rounded-full bg-success" />
-            All systems operational · Built on Solana
+        <div className="flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <Logo className="[&>span:last-child]:text-[13px]" />
+          </div>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span>Copyright © 2026 Quantum Invest. All rights reserved.</span>
+            <span className="hidden h-3 w-px bg-border sm:block" />
+            {["Privacy", "Terms", "Security", "Cookies"].map((l) => (
+              <Link key={l} href="#" className="hover:text-foreground hover:underline">
+                {l}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

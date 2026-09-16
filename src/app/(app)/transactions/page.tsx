@@ -36,27 +36,27 @@ const typeMeta: Record<
   reward: {
     label: "Reward",
     icon: <Gift />,
-    badge: "bg-accent/12 text-accent",
+    badge: "bg-foreground/[0.05] text-foreground",
   },
   withdrawal: {
     label: "Withdrawal",
     icon: <ArrowUpRight />,
-    badge: "bg-warning/15 text-warning",
+    badge: "bg-foreground/[0.05] text-foreground",
   },
   deposit: {
     label: "Deposit",
     icon: <ArrowDownToLine />,
-    badge: "bg-secondary/12 text-secondary",
+    badge: "bg-foreground/[0.05] text-foreground",
   },
   subscription: {
     label: "Subscription",
     icon: <CreditCard />,
-    badge: "bg-primary/12 text-primary",
+    badge: "bg-foreground/[0.05] text-foreground",
   },
   referral: {
     label: "Referral",
     icon: <Users />,
-    badge: "bg-secondary/12 text-secondary",
+    badge: "bg-foreground/[0.05] text-foreground",
   },
 };
 
@@ -152,7 +152,7 @@ export default function TransactionsPage() {
                 <p className="text-xs font-medium text-muted-foreground">
                   Total in
                 </p>
-                <p className="text-lg font-bold text-success">
+                <p className="text-lg font-semibold text-success">
                   +{formatToken(totals.inflow)}
                 </p>
               </div>
@@ -167,7 +167,7 @@ export default function TransactionsPage() {
                 <p className="text-xs font-medium text-muted-foreground">
                   Total out
                 </p>
-                <p className="text-lg font-bold text-destructive">
+                <p className="text-lg font-semibold text-destructive">
                   −{formatToken(totals.outflow)}
                 </p>
               </div>
@@ -175,7 +175,7 @@ export default function TransactionsPage() {
           </Card>
           <Card className="card-hover p-5">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-xl bg-primary/12 text-primary [&_svg]:size-5">
+              <div className="flex size-10 items-center justify-center rounded-xl bg-foreground/[0.05] text-foreground [&_svg]:size-5">
                 <Coins />
               </div>
               <div>
@@ -184,7 +184,7 @@ export default function TransactionsPage() {
                 </p>
                 <p
                   className={cn(
-                    "text-lg font-bold",
+                    "text-lg font-semibold",
                     totals.net >= 0 ? "text-success" : "text-destructive",
                   )}
                 >
@@ -338,7 +338,7 @@ export default function TransactionsPage() {
 
       <p className="mt-4 text-center text-xs text-muted-foreground">
         Need a wallet-level view?{" "}
-        <Link href="/wallet" className="text-primary hover:underline">
+        <Link href="/wallet" className="text-secondary hover:underline">
           Open your wallet
         </Link>
         .

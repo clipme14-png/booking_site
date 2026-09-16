@@ -1,13 +1,13 @@
 import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { BookOpen, Coins, ShieldCheck, TrendingUp } from "lucide-react";
 
 const highlights = [
-  { icon: BookOpen, text: "Read curated books across finance, crypto & growth" },
-  { icon: Coins, text: "Earn SOL rewards for every book & quiz you complete" },
-  { icon: TrendingUp, text: "Climb the boards and multiply your earning potential" },
-  { icon: ShieldCheck, text: "Non-custodial. Your keys, your rewards, always" },
+  { title: "A considered library", text: "Finance, markets, business and the mind." },
+  { title: "Paid in SOL", text: "For every book you finish and quiz you pass." },
+  { title: "Six boards", text: "Each one raises what you earn." },
+  { title: "Non-custodial", text: "Your keys and your rewards stay with you." },
 ];
 
 export default function AuthLayout({
@@ -16,59 +16,63 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-canvas">
       {/* Brand panel */}
-      <div className="relative hidden w-1/2 overflow-hidden bg-brand-gradient lg:flex lg:flex-col">
-        <div className="absolute inset-0 grid-pattern opacity-30" />
-        <div className="absolute -left-20 top-1/4 size-96 rounded-full bg-white/10 blur-3xl" />
-        <div className="absolute -right-10 bottom-10 size-80 rounded-full bg-black/10 blur-3xl" />
+      <aside className="relative hidden w-[44%] max-w-[640px] flex-col bg-[#000] p-12 text-white lg:flex xl:p-16">
+        <Logo href="/" inverted />
 
-        <div className="relative z-10 flex h-full flex-col p-12 text-white">
-          <Logo href="/" />
-          <div className="flex flex-1 flex-col justify-center">
-            <h2 className="max-w-md text-4xl font-bold leading-tight">
-              Turn knowledge into wealth on Solana.
-            </h2>
-            <p className="mt-4 max-w-md text-white/80">
-              Join 24,000+ learners earning real rewards for reading. The more
-              you learn, the more you earn.
-            </p>
-            <ul className="mt-10 space-y-4">
-              {highlights.map((h) => (
-                <li key={h.text} className="flex items-center gap-3">
-                  <span className="flex size-9 items-center justify-center rounded-lg bg-white/15 backdrop-blur">
-                    <h.icon className="size-4.5" />
-                  </span>
-                  <span className="text-sm text-white/90">{h.text}</span>
-                </li>
-              ))}
-            </ul>
+        <div className="flex flex-1 flex-col justify-center">
+          <h2 className="max-w-[12ch] text-[48px] font-semibold leading-[1.05] tracking-[-0.035em] xl:text-[56px]">
+            Read well. Get paid for it.
+          </h2>
+          <p className="mt-6 max-w-sm text-[17px] leading-relaxed text-white/55">
+            24,800 readers earn SOL for the books they finish on Quantum Invest.
+          </p>
+
+          <dl className="mt-14 max-w-md divide-y divide-white/10 border-y border-white/10">
+            {highlights.map((h) => (
+              <div key={h.title} className="py-4">
+                <dt className="text-[15px] font-medium">{h.title}</dt>
+                <dd className="mt-0.5 text-[13px] text-white/50">{h.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="flex gap-10 text-white">
+          <div>
+            <p className="text-[28px] font-semibold tracking-tight tabular">512K</p>
+            <p className="text-xs text-white/45">SOL paid to readers</p>
           </div>
-          <div className="flex items-center gap-6 text-sm text-white/70">
-            <span>512K+ SOL distributed</span>
-            <span>·</span>
-            <span>24.8K learners</span>
+          <div>
+            <p className="text-[28px] font-semibold tracking-tight tabular">1.2M</p>
+            <p className="text-xs text-white/45">Books completed</p>
           </div>
         </div>
-      </div>
+      </aside>
 
       {/* Form panel */}
-      <div className="relative flex w-full flex-col lg:w-1/2">
-        <div className="flex items-center justify-between p-6">
-          <div className="lg:hidden">
-            <Logo href="/" />
-          </div>
-          <div className="ml-auto">
-            <ThemeToggle />
-          </div>
-        </div>
-        <div className="flex flex-1 items-center justify-center px-6 pb-12">
-          <div className="w-full max-w-sm">{children}</div>
-        </div>
-        <p className="pb-6 text-center text-xs text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">
-            ← Back to home
+      <div className="relative flex min-w-0 flex-1 flex-col">
+        <div className="flex h-16 items-center justify-between px-5 sm:px-8">
+          <Link
+            href="/"
+            className="inline-flex items-center text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <ChevronLeft className="-ml-1 size-4" />
+            Home
           </Link>
+          <div className="lg:hidden">
+            <Logo href="/" showText={false} />
+          </div>
+          <ThemeToggle />
+        </div>
+        <div className="flex flex-1 items-center justify-center px-5 pb-16 pt-6">
+          <div className="w-full max-w-[380px]">{children}</div>
+        </div>
+        <p className="flex justify-center gap-4 pb-6 text-xs text-muted-foreground">
+          <span>© 2026 Quantum Invest</span>
+          <Link href="#" className="hover:text-foreground">Privacy</Link>
+          <Link href="#" className="hover:text-foreground">Terms</Link>
         </p>
       </div>
     </div>

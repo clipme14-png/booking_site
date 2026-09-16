@@ -3,7 +3,6 @@
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2, Info, X, AlertTriangle, XCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 type ToastVariant = "default" | "success" | "error" | "warning";
 
@@ -21,7 +20,7 @@ interface ToastContextValue {
 const ToastContext = React.createContext<ToastContextValue | null>(null);
 
 const icons: Record<ToastVariant, React.ReactNode> = {
-  default: <Info className="text-secondary" />,
+  default: <Info className="text-muted-foreground" />,
   success: <CheckCircle2 className="text-success" />,
   error: <XCircle className="text-destructive" />,
   warning: <AlertTriangle className="text-warning" />,
@@ -48,21 +47,21 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   return (
     <ToastContext.Provider value={{ toast }}>
       {children}
-      <div className="pointer-events-none fixed bottom-4 right-4 z-[100] flex w-full max-w-sm flex-col gap-2.5">
+      <div className="pointer-events-none fixed bottom-4 right-4 z-[100] flex w-[calc(100%-2rem)] max-w-sm flex-col gap-2">
         <AnimatePresence>
           {toasts.map((t) => (
             <motion.div
               key={t.id}
               layout
-              initial={{ opacity: 0, y: 24, scale: 0.9 }}
+              initial={{ opacity: 0, y: 12, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 40, scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 350, damping: 30 }}
-              className="pointer-events-auto flex items-start gap-3 rounded-xl border border-border glass-strong p-4 shadow-lg"
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: [0.28, 0.11, 0.32, 1] }}
+              className="glass-strong pointer-events-auto flex items-start gap-3 rounded-2xl border border-border p-3.5 pr-3 shadow-lg"
             >
-              <span className="mt-0.5 [&_svg]:size-5">{icons[t.variant]}</span>
+              <span className="mt-px [&_svg]:size-[18px] [&_svg]:stroke-[1.75]">{icons[t.variant]}</span>
               <div className="flex-1">
-                <p className="text-sm font-semibold text-foreground">
+                <p className="text-[13px] font-semibold text-foreground">
                   {t.title}
                 </p>
                 {t.description && (

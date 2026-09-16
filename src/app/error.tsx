@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { AlertTriangle, Home, RotateCcw } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { StatusPage } from "@/components/status-page";
 import { Button } from "@/components/ui/button";
 
@@ -21,31 +21,29 @@ export default function Error({
   return (
     <StatusPage
       icon={AlertTriangle}
-      title="Something went wrong"
-      description="An unexpected error occurred while loading this page. Our team has been notified — you can try again or head back home."
+      title="Something went wrong."
+      description="This page didn't load as expected. Try again, or return home."
       accent="destructive"
       actions={
         <>
-          <Button size="lg" className="w-full sm:w-auto" onClick={() => reset()}>
-            <RotateCcw />
+          <Button size="lg" onClick={() => reset()}>
             Try again
           </Button>
           <Link href="/">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-              <Home />
-              Back to home
+            <Button variant="outline" size="lg" className="w-full">
+              Go to home
             </Button>
           </Link>
         </>
       }
     >
       {error.digest && (
-        <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-          <span>Error reference</span>
-          <code className="rounded-md border border-border bg-muted px-2 py-1 font-mono text-[11px] text-foreground/70">
+        <p className="text-xs text-muted-foreground">
+          Reference{" "}
+          <code className="ml-1 rounded-md bg-foreground/[0.05] px-1.5 py-0.5 font-mono text-[11px] text-foreground/70">
             {error.digest}
           </code>
-        </div>
+        </p>
       )}
     </StatusPage>
   );

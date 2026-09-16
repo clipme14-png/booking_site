@@ -11,8 +11,6 @@ import {
   Trophy,
   ArrowRight,
   ArrowUpRight,
-  Sparkles,
-  Wallet as WalletIcon,
   Users,
   CreditCard,
   ArrowDownToLine,
@@ -32,7 +30,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { StatCard, CountUp } from "@/components/ui/stat-card";
 import { AreaChart, BarChart } from "@/components/charts/charts";
 import { Reveal } from "@/components/reveal";
-import { WalletButton } from "@/components/wallet-button";
 import { Dialog, DialogHeader } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/toast";
 import { cn, formatToken, formatUsd, timeAgo } from "@/lib/utils";
@@ -57,11 +54,11 @@ const txMeta: Record<
   Transaction["type"],
   { icon: React.ReactNode; tint: string }
 > = {
-  reward: { icon: <Gift />, tint: "bg-accent/12 text-accent" },
-  withdrawal: { icon: <ArrowUpRight />, tint: "bg-warning/15 text-warning" },
-  deposit: { icon: <ArrowDownToLine />, tint: "bg-secondary/12 text-secondary" },
-  subscription: { icon: <CreditCard />, tint: "bg-primary/12 text-primary" },
-  referral: { icon: <Users />, tint: "bg-secondary/12 text-secondary" },
+  reward: { icon: <Gift />, tint: "bg-foreground/[0.05] text-foreground" },
+  withdrawal: { icon: <ArrowUpRight />, tint: "bg-foreground/[0.05] text-foreground" },
+  deposit: { icon: <ArrowDownToLine />, tint: "bg-foreground/[0.05] text-foreground" },
+  subscription: { icon: <CreditCard />, tint: "bg-foreground/[0.05] text-foreground" },
+  referral: { icon: <Users />, tint: "bg-foreground/[0.05] text-foreground" },
 };
 
 const statusVariant: Record<
@@ -71,11 +68,11 @@ const statusVariant: Record<
 
 /* ---- activity feed icons ---- */
 const activityIcon: Record<string, { icon: React.ReactNode; tint: string }> = {
-  book: { icon: <BookOpen />, tint: "bg-primary/12 text-primary" },
-  quiz: { icon: <CheckCircle2 />, tint: "bg-secondary/12 text-secondary" },
-  referral: { icon: <Users />, tint: "bg-accent/12 text-accent" },
-  streak: { icon: <Flame />, tint: "bg-warning/15 text-warning" },
-  reward: { icon: <Gift />, tint: "bg-accent/12 text-accent" },
+  book: { icon: <BookOpen />, tint: "bg-foreground/[0.05] text-foreground" },
+  quiz: { icon: <CheckCircle2 />, tint: "bg-foreground/[0.05] text-foreground" },
+  referral: { icon: <Users />, tint: "bg-foreground/[0.05] text-foreground" },
+  streak: { icon: <Flame />, tint: "bg-foreground/[0.05] text-foreground" },
+  reward: { icon: <Gift />, tint: "bg-foreground/[0.05] text-foreground" },
 };
 
 /* ---- monthly (12) vs week (last 7 of earnings) ---- */
@@ -83,10 +80,10 @@ const weekEarnings = earningsSeries.slice(-7);
 const weekEarningsLabels = weekdayLabels;
 
 const quickActions = [
-  { label: "Read a book", href: "/reading", icon: <BookOpen />, tint: "bg-primary/12 text-primary" },
-  { label: "Take a quiz", href: "/quiz", icon: <Zap />, tint: "bg-secondary/12 text-secondary" },
-  { label: "Withdraw", href: "/withdraw", icon: <ArrowUpRight />, tint: "bg-accent/12 text-accent" },
-  { label: "Invite friends", href: "/referrals", icon: <Users />, tint: "bg-warning/15 text-warning" },
+  { label: "Read a book", href: "/reading", icon: <BookOpen />, tint: "bg-foreground/[0.05] text-foreground" },
+  { label: "Take a quiz", href: "/quiz", icon: <Zap />, tint: "bg-foreground/[0.05] text-foreground" },
+  { label: "Withdraw", href: "/withdraw", icon: <ArrowUpRight />, tint: "bg-foreground/[0.05] text-foreground" },
+  { label: "Invite friends", href: "/referrals", icon: <Users />, tint: "bg-foreground/[0.05] text-foreground" },
 ];
 
 export default function DashboardPage() {
@@ -124,14 +121,10 @@ export default function DashboardPage() {
     <div>
       <PageHeader
         title="Welcome back, Alex"
-        description={`${today} · You're on a ${dashboardStats.streak}-day streak — keep it going!`}
+        description={`${today} · ${dashboardStats.streak}-day reading streak`}
         actions={
           <>
-            <Button onClick={() => setClaimOpen(true)}>
-              <Sparkles />
-              Claim rewards
-            </Button>
-            <WalletButton />
+            <Button onClick={() => setClaimOpen(true)}>Claim rewards</Button>
           </>
         }
       />
@@ -140,7 +133,7 @@ export default function DashboardPage() {
       <Reveal>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard
-            label="Wallet Balance"
+            label="Wallet balance"
             value={<CountUp value={dashboardStats.walletBalance} decimals={2} suffix=" SOL" />}
             icon={<Coins />}
             change={8.2}
@@ -148,15 +141,15 @@ export default function DashboardPage() {
             accent="primary"
           />
           <StatCard
-            label="Claimable Rewards"
+            label="Ready to claim"
             value={<CountUp value={dashboardStats.claimableRewards} decimals={2} suffix=" SOL" />}
             icon={<Gift />}
             change={12.5}
-            changeLabel="ready to claim"
+            changeLabel="since Monday"
             accent="accent"
           />
           <StatCard
-            label="Weekly Earnings"
+            label="Earned this week"
             value={<CountUp value={dashboardStats.weeklyEarnings} decimals={2} suffix=" SOL" />}
             icon={<TrendingUp />}
             change={5.4}
@@ -164,7 +157,7 @@ export default function DashboardPage() {
             accent="secondary"
           />
           <StatCard
-            label="Current Streak"
+            label="Reading streak"
             value={<CountUp value={dashboardStats.streak} suffix=" days" />}
             icon={<Flame />}
             change={3.7}
@@ -175,23 +168,23 @@ export default function DashboardPage() {
       </Reveal>
 
       {/* Main grid */}
-      <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
+      <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-3">
         {/* Left column (2/3) */}
-        <div className="space-y-5 lg:col-span-2">
+        <div className="space-y-5 xl:col-span-2">
           {/* Earnings overview */}
           <Reveal delay={1}>
             <Card>
               <CardHeader className="flex-row items-start justify-between gap-4">
                 <div>
-                  <CardTitle>Earnings overview</CardTitle>
-                  <CardDescription>Your SOL rewards over time</CardDescription>
+                  <CardTitle>Earnings</CardTitle>
+                  <CardDescription>SOL rewards over time</CardDescription>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold tracking-tight">
+                  <p className="text-[28px] font-semibold leading-none tracking-tight tabular">
                     {formatToken(dashboardStats.totalEarnings)}
                   </p>
-                  <p className="text-xs text-muted-foreground">
-                    ≈ {formatUsd(dashboardStats.totalEarnings * SOL_USD)} total
+                  <p className="mt-1.5 text-xs text-muted-foreground tabular">
+                    About {formatUsd(dashboardStats.totalEarnings * SOL_USD)} in total
                   </p>
                 </div>
               </CardHeader>
@@ -245,7 +238,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Right column (1/3) */}
-        <div className="space-y-5">
+        <div className="grid gap-5 md:grid-cols-3 md:items-start xl:grid-cols-1">
           {/* Board progress */}
           <Reveal delay={1}>
             <Card>
@@ -261,7 +254,7 @@ export default function DashboardPage() {
               <CardContent className="flex flex-col items-center">
                 <CircularProgress value={dashboardStats.boardProgress} size={148} strokeWidth={12}>
                   <div className="text-center">
-                    <p className="text-3xl font-bold tracking-tight">
+                    <p className="text-3xl font-semibold tracking-tight">
                       {dashboardStats.boardProgress}%
                     </p>
                     <p className="text-xs text-muted-foreground">to Sage</p>
@@ -294,7 +287,7 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-end justify-between">
-                  <p className="text-2xl font-bold tracking-tight">
+                  <p className="text-2xl font-semibold tracking-tight">
                     {dashboardStats.booksReadToday}
                     <span className="text-base font-medium text-muted-foreground">
                       {" "}
@@ -313,8 +306,7 @@ export default function DashboardPage() {
                   indicatorClassName="bg-accent"
                 />
                 <p className="text-xs text-muted-foreground">
-                  {dashboardStats.booksRemaining} books remaining to hit today&apos;s
-                  goal.
+                  {`${dashboardStats.booksRemaining} more to reach today's goal.`}
                 </p>
               </CardContent>
             </Card>
@@ -331,7 +323,7 @@ export default function DashboardPage() {
                   <Link
                     key={a.href}
                     href={a.href}
-                    className="card-hover group flex flex-col gap-2 rounded-xl border border-border p-3.5 transition-colors hover:border-primary/40"
+                    className="group flex flex-col gap-3 rounded-xl border border-border p-3.5 transition-colors hover:bg-foreground/[0.03]"
                   >
                     <span
                       className={cn(
@@ -354,9 +346,9 @@ export default function DashboardPage() {
       </div>
 
       {/* Lower grid */}
-      <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
+      <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-3">
         {/* Recent transactions */}
-        <Reveal delay={1} className="lg:col-span-2">
+        <Reveal delay={1} className="xl:col-span-2">
           <Card className="h-full">
             <CardHeader className="flex-row items-center justify-between">
               <div>
@@ -365,7 +357,7 @@ export default function DashboardPage() {
               </div>
               <Link
                 href="/transactions"
-                className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                className="inline-flex items-center gap-1 text-sm text-secondary hover:underline"
               >
                 View all <ArrowRight className="size-3.5" />
               </Link>
@@ -469,8 +461,8 @@ export default function DashboardPage() {
               <CardDescription>Top learners this season</CardDescription>
             </div>
             <Link
-              href="/leaderboard"
-              className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+              href="/boards"
+              className="inline-flex items-center gap-1 text-sm text-secondary hover:underline"
             >
               Full board <ArrowRight className="size-3.5" />
             </Link>
@@ -481,9 +473,7 @@ export default function DashboardPage() {
             ))}
             {you && (
               <>
-                <div className="flex items-center justify-center py-1 text-xs text-muted-foreground">
-                  · · ·
-                </div>
+                <div className="mx-3 border-t border-dashed border-border" />
                 <LeaderRow entry={you} highlight />
               </>
             )}
@@ -499,12 +489,12 @@ export default function DashboardPage() {
         />
         <div className="my-4 flex items-center justify-between rounded-xl border border-border bg-muted/40 p-4">
           <div className="flex items-center gap-3">
-            <span className="flex size-10 items-center justify-center rounded-lg bg-accent/12 text-accent [&_svg]:size-5">
+            <span className="flex size-10 items-center justify-center rounded-lg bg-foreground/[0.05] text-foreground [&_svg]:size-5">
               <Gift />
             </span>
             <div>
               <p className="text-sm text-muted-foreground">Claimable</p>
-              <p className="text-lg font-bold">
+              <p className="text-lg font-semibold">
                 {formatToken(dashboardStats.claimableRewards)}
               </p>
             </div>
@@ -518,7 +508,6 @@ export default function DashboardPage() {
             Cancel
           </Button>
           <Button loading={claiming} onClick={confirmClaim}>
-            <Sparkles />
             Confirm claim
           </Button>
         </div>
@@ -548,13 +537,13 @@ function LeaderRow({
       className={cn(
         "flex items-center gap-3 rounded-xl border p-3 transition-colors",
         highlight
-          ? "border-primary/40 bg-primary/[0.06]"
+          ? "border-border bg-foreground/[0.03]"
           : "border-transparent hover:bg-muted/50",
       )}
     >
       <span
         className={cn(
-          "flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-bold",
+          "flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold",
           entry.rank <= 3 ? cn("bg-muted", medal) : "bg-muted text-muted-foreground",
         )}
       >

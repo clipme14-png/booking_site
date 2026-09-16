@@ -1,41 +1,51 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
+export function LogoMark({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn(
+        "relative flex size-7 shrink-0 items-center justify-center rounded-[8px] bg-primary text-primary-foreground",
+        className,
+      )}
+    >
+      <svg viewBox="0 0 24 24" fill="none" className="size-[18px]" aria-hidden>
+        <circle cx="12" cy="11" r="5.75" stroke="currentColor" strokeWidth="2.1" />
+        <path d="M12.6 14.9 16.4 19" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" />
+      </svg>
+    </span>
+  );
+}
+
 export function Logo({
   className,
   href = "/",
   showText = true,
+  inverted = false,
 }: {
   className?: string;
   href?: string;
   showText?: boolean;
+  /** Render in white, for use on dark panels. */
+  inverted?: boolean;
 }) {
   return (
     <Link
       href={href}
-      className={cn("group inline-flex items-center gap-2.5", className)}
+      aria-label="Quantum Invest home"
+      className={cn(
+        "inline-flex items-center gap-2 rounded-md transition-opacity hover:opacity-80",
+        className,
+      )}
     >
-      <span className="relative flex size-9 items-center justify-center rounded-xl bg-brand-gradient shadow-glow transition-transform group-hover:scale-105">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          className="size-5 text-white"
-          aria-hidden
-        >
-          <path
-            d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11a2 2 0 0 1 2 2v13a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 4 16V5.5Z"
-            fill="currentColor"
-            opacity="0.9"
-          />
-          <path
-            d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13a2 2 0 0 0-2 2v13a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 20 16V5.5Z"
-            fill="currentColor"
-            opacity="0.6"
-          />
-        </svg>
-      </span>
+      <LogoMark className={inverted ? "bg-white text-black" : undefined} />
       {showText && (
-        <span className="text-lg font-bold tracking-tight text-foreground">
+        <span
+          className={cn(
+            "text-[15px] font-semibold tracking-tight",
+            inverted ? "text-white" : "text-foreground",
+          )}
+        >
           Quantum Invest
         </span>
       )}

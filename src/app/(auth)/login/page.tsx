@@ -78,8 +78,8 @@ export default function LoginPage() {
   return (
     <motion.div variants={container} initial="hidden" animate="visible">
       <motion.div variants={item} className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.025em]">Welcome back</h1>
+        <p className="mt-2 text-[15px] text-muted-foreground">
           Sign in to keep earning while you read.
         </p>
       </motion.div>
@@ -104,7 +104,7 @@ export default function LoginPage() {
             <Label htmlFor="password">Password</Label>
             <Link
               href="/forgot-password"
-              className="text-xs font-medium text-primary hover:underline"
+              className="text-xs text-secondary hover:underline"
             >
               Forgot password?
             </Link>
@@ -173,7 +173,7 @@ export default function LoginPage() {
 
       <motion.p variants={item} className="mt-8 text-center text-sm text-muted-foreground">
         Don&apos;t have an account?{" "}
-        <Link href="/register" className="font-semibold text-primary hover:underline">
+        <Link href="/register" className="text-secondary hover:underline">
           Sign up
         </Link>
       </motion.p>

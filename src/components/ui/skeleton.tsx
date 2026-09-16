@@ -7,9 +7,9 @@ export function Skeleton({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-lg bg-muted",
-        "after:absolute after:inset-0 after:-translate-x-full after:animate-shimmer",
-        "after:bg-gradient-to-r after:from-transparent after:via-foreground/5 after:to-transparent",
+        "relative overflow-hidden rounded-lg bg-foreground/[0.05]",
+        "after:absolute after:inset-0 after:animate-shimmer",
+        "after:bg-gradient-to-r after:from-transparent after:via-foreground/[0.04] after:to-transparent",
         className,
       )}
       {...props}

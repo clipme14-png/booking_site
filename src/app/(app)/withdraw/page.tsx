@@ -80,9 +80,9 @@ export default function WithdrawPage() {
     <div>
       <PageHeader title="Withdraw" description="Move your earnings to your Solana wallet" />
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
         {/* Left: form */}
-        <Reveal className="lg:col-span-2">
+        <Reveal className="xl:col-span-2">
           <Card className="p-6">
             <AnimatePresence mode="wait">
               {success ? (
@@ -96,7 +96,7 @@ export default function WithdrawPage() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 18 }}
-                    className="flex size-20 items-center justify-center rounded-full bg-accent/15 text-accent"
+                    className="flex size-20 items-center justify-center rounded-full bg-foreground/[0.05] text-foreground"
                   >
                     <motion.span
                       initial={{ scale: 0, rotate: -20 }}
@@ -106,7 +106,7 @@ export default function WithdrawPage() {
                       <Check className="size-10" strokeWidth={3} />
                     </motion.span>
                   </motion.div>
-                  <h2 className="mt-6 text-xl font-bold tracking-tight">Withdrawal submitted</h2>
+                  <h2 className="mt-6 text-xl font-semibold tracking-tight">Withdrawal submitted</h2>
                   <p className="mt-2 max-w-sm text-sm text-muted-foreground">
                     {formatToken(numeric)} is being sent to{" "}
                     <span className="font-medium text-foreground">{destination}</span>. It should
@@ -345,25 +345,25 @@ function SummaryRow({
 const info = [
   {
     icon: <CalendarClock />,
-    tint: "bg-primary/12 text-primary",
+    tint: "bg-foreground/[0.05] text-foreground",
     title: "Weekly availability",
     body: "Withdrawals open weekly. Next window in ~2 days.",
   },
   {
     icon: <Coins />,
-    tint: "bg-secondary/12 text-secondary",
+    tint: "bg-foreground/[0.05] text-foreground",
     title: "Minimum withdrawal",
     body: `${MIN_WITHDRAWAL} SOL per transaction.`,
   },
   {
     icon: <Zap />,
-    tint: "bg-accent/12 text-accent",
+    tint: "bg-foreground/[0.05] text-foreground",
     title: "Transaction fee",
     body: "~0.000005 SOL — near-zero on Solana.",
   },
   {
     icon: <Clock />,
-    tint: "bg-warning/15 text-warning",
+    tint: "bg-foreground/[0.05] text-foreground",
     title: "Estimated arrival",
     body: "Funds land in seconds after confirmation.",
   },

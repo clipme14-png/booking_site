@@ -46,7 +46,7 @@ const pools = [
   {
     name: "Daily Pool",
     icon: <CalendarDays />,
-    tone: "bg-primary/12 text-primary",
+    tone: "bg-foreground/[0.05] text-foreground",
     amount: treasury.dailyPool,
     description:
       "Refilled every 24h and split among readers who hit their daily goal.",
@@ -54,7 +54,7 @@ const pools = [
   {
     name: "Weekly Pool",
     icon: <CalendarClock />,
-    tone: "bg-secondary/12 text-secondary",
+    tone: "bg-foreground/[0.05] text-foreground",
     amount: treasury.weeklyPool,
     description:
       "A larger reward shared by the most consistent learners each week.",
@@ -62,7 +62,7 @@ const pools = [
   {
     name: "Board Pool",
     icon: <Layers />,
-    tone: "bg-accent/12 text-accent",
+    tone: "bg-foreground/[0.05] text-foreground",
     amount: 6800,
     description:
       "Milestone payouts released when members climb to a new board tier.",
@@ -70,7 +70,7 @@ const pools = [
   {
     name: "Referral Pool",
     icon: <Users />,
-    tone: "bg-warning/15 text-warning",
+    tone: "bg-foreground/[0.05] text-foreground",
     amount: 4620,
     description:
       "Funds the multi-level commissions paid when friends learn and earn.",
@@ -84,7 +84,7 @@ const communityMetrics = [
     suffix: "",
     sub: "+6.2% this month",
     icon: <Users />,
-    tone: "bg-primary/12 text-primary",
+    tone: "bg-foreground/[0.05] text-foreground",
   },
   {
     label: "Avg daily payout",
@@ -92,7 +92,7 @@ const communityMetrics = [
     suffix: " SOL",
     sub: "≈ " + formatUsd(480 * SOL_USD),
     icon: <TrendingUp />,
-    tone: "bg-accent/12 text-accent",
+    tone: "bg-foreground/[0.05] text-foreground",
   },
   {
     label: "Books read",
@@ -100,7 +100,7 @@ const communityMetrics = [
     suffix: "",
     sub: "all-time across the network",
     icon: <BookOpen />,
-    tone: "bg-secondary/12 text-secondary",
+    tone: "bg-foreground/[0.05] text-foreground",
   },
   {
     label: "30-day retention",
@@ -108,7 +108,7 @@ const communityMetrics = [
     suffix: "%",
     sub: "of new readers stay active",
     icon: <Repeat />,
-    tone: "bg-warning/15 text-warning",
+    tone: "bg-foreground/[0.05] text-foreground",
   },
 ];
 
@@ -208,7 +208,7 @@ export default function TreasuryPage() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-5">
         {/* Distribution donut */}
-        <Reveal className="lg:col-span-2">
+        <Reveal className="xl:col-span-2">
           <Card className="h-full">
             <CardHeader>
               <CardTitle>Distribution breakdown</CardTitle>
@@ -224,7 +224,7 @@ export default function TreasuryPage() {
                   strokeWidth={24}
                 >
                   <div className="text-center">
-                    <p className="text-2xl font-bold tracking-tight">100%</p>
+                    <p className="text-2xl font-semibold tracking-tight">100%</p>
                     <p className="text-xs text-muted-foreground">allocated</p>
                   </div>
                 </DonutChart>
@@ -262,7 +262,7 @@ export default function TreasuryPage() {
                   </CardDescription>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold tracking-tight">
+                  <p className="text-2xl font-semibold tracking-tight">
                     {compact(totalDist * 1000)}
                   </p>
                   <p className="text-xs text-muted-foreground">
@@ -293,7 +293,7 @@ export default function TreasuryPage() {
                   <p className="text-sm font-medium text-muted-foreground">
                     {m.label}
                   </p>
-                  <p className="text-2xl font-bold tracking-tight">
+                  <p className="text-2xl font-semibold tracking-tight">
                     <CountUp value={m.value} suffix={m.suffix} />
                   </p>
                 </div>
@@ -317,7 +317,7 @@ export default function TreasuryPage() {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <span className="flex size-8 items-center justify-center rounded-lg bg-primary/12 text-primary [&_svg]:size-4">
+              <span className="flex size-8 items-center justify-center rounded-lg bg-foreground/[0.05] text-foreground [&_svg]:size-4">
                 <Wallet />
               </span>
               <div>
@@ -363,12 +363,10 @@ export default function TreasuryPage() {
 
       {/* Transparency banner */}
       <Reveal className="mt-6 block">
-        <Card className="relative overflow-hidden glass">
-          <div className="pointer-events-none absolute inset-0 bg-brand-gradient/5" />
-          <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" />
+        <Card className="relative overflow-hidden">
           <CardContent className="relative flex flex-col items-start gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-4">
-              <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-accent/12 text-accent shadow-glow [&_svg]:size-6">
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-foreground/[0.05] text-foreground [&_svg]:size-5 [&_svg]:stroke-[1.5]">
                 <ShieldCheck />
               </span>
               <div>
@@ -377,8 +375,8 @@ export default function TreasuryPage() {
                 </h3>
                 <p className="mt-1 max-w-xl text-sm text-muted-foreground">
                   Every deposit, reward and payout is recorded on Solana. The
-                  treasury is fully auditable in real time — no hidden balances,
-                  no custodial black boxes.
+                  treasury can be audited at any time, and no balance is held
+                  off the record.
                 </p>
               </div>
             </div>

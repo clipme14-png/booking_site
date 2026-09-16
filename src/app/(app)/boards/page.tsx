@@ -29,7 +29,6 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress, CircularProgress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
 import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
@@ -47,14 +46,14 @@ type Achievement = {
 };
 
 const achievements: Achievement[] = [
-  { name: "First Book", description: "Finished your first book", icon: <BookOpen />, earned: true, color: "#7c3aed" },
-  { name: "7-Day Streak", description: "Read 7 days in a row", icon: <Flame />, earned: true, color: "#f59e0b" },
-  { name: "Quiz Master", description: "Aced 25 quizzes", icon: <Brain />, earned: true, color: "#2563eb" },
-  { name: "Referral Pro", description: "Referred 10+ friends", icon: <Users />, earned: true, color: "#16a34a" },
-  { name: "Century Club", description: "Read 100 books", icon: <Award />, earned: true, color: "#db2777" },
-  { name: "Early Adopter", description: "Joined in the first season", icon: <Rocket />, earned: true, color: "#06b6d4" },
-  { name: "Sage Ascension", description: "Reach the Sage board", icon: <Crown />, earned: false, color: "#db2777" },
-  { name: "Perfect Month", description: "30-day reading streak", icon: <Star />, earned: false, color: "#f59e0b" },
+  { name: "First Book", description: "Finished your first book", icon: <BookOpen />, earned: true, color: "#2f6fde" },
+  { name: "7-Day Streak", description: "Read 7 days in a row", icon: <Flame />, earned: true, color: "#b8955a" },
+  { name: "Quiz Master", description: "Aced 25 quizzes", icon: <Brain />, earned: true, color: "#5b7fa6" },
+  { name: "Referral Pro", description: "Referred 10+ friends", icon: <Users />, earned: true, color: "#6f8f78" },
+  { name: "Century Club", description: "Read 100 books", icon: <Award />, earned: true, color: "#8a74ad" },
+  { name: "Early Adopter", description: "Joined in the first season", icon: <Rocket />, earned: true, color: "#7d8a99" },
+  { name: "Sage Ascension", description: "Reach the Sage board", icon: <Crown />, earned: false, color: "#8a74ad" },
+  { name: "Perfect Month", description: "30-day reading streak", icon: <Star />, earned: false, color: "#b8955a" },
 ];
 
 /* --------------------------------------------------------------- */
@@ -83,18 +82,11 @@ export default function BoardsPage() {
       {/* Hero current board */}
       <Reveal>
         <Card className="relative overflow-hidden">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-10"
-            style={{
-              background: `radial-gradient(circle at 20% 20%, ${current.color}, transparent 60%)`,
-            }}
-          />
-          <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" />
           <CardContent className="relative grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div className="space-y-5">
               <div className="flex items-center gap-4">
                 <span
-                  className="flex size-14 items-center justify-center rounded-2xl text-white shadow-glow [&_svg]:size-7"
+                  className="flex size-14 items-center justify-center rounded-full text-white [&_svg]:size-6 [&_svg]:stroke-[1.5]"
                   style={{ backgroundColor: current.color }}
                 >
                   <Trophy />
@@ -104,7 +96,7 @@ export default function BoardsPage() {
                     <Badge variant="solid">Level {current.level}</Badge>
                     <Badge variant="outline">Current board</Badge>
                   </div>
-                  <h2 className="mt-1.5 text-3xl font-bold tracking-tight">
+                  <h2 className="mt-1.5 text-3xl font-semibold tracking-tight">
                     {current.name}
                   </h2>
                 </div>
@@ -141,8 +133,7 @@ export default function BoardsPage() {
                     <p className="text-xs text-muted-foreground">
                       Reward to unlock
                     </p>
-                    <p className="flex items-center gap-1.5 text-sm font-semibold text-accent">
-                      <Gift className="size-4" />
+                    <p className="flex items-center gap-1.5 text-sm font-semibold">
                       {next.reward}
                     </p>
                   </div>
@@ -158,7 +149,7 @@ export default function BoardsPage() {
                 strokeWidth={12}
               >
                 <div className="text-center">
-                  <p className="text-3xl font-bold tracking-tight">
+                  <p className="text-3xl font-semibold tracking-tight">
                     {dashboardStats.boardProgress}%
                   </p>
                   <p className="text-xs text-muted-foreground">to {next?.name}</p>
@@ -278,7 +269,7 @@ export default function BoardsPage() {
                 <div key={m.label} className="space-y-2">
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2.5">
-                      <span className="flex size-8 items-center justify-center rounded-lg bg-primary/12 text-primary [&_svg]:size-4">
+                      <span className="flex size-8 items-center justify-center rounded-lg bg-foreground/[0.05] text-foreground [&_svg]:size-4">
                         {m.icon}
                       </span>
                       <div>
@@ -416,14 +407,14 @@ function JourneyNode({ board, index }: { board: (typeof boards)[number]; index: 
         className={cn(
           "flex-1 rounded-xl border p-4 transition-colors",
           current
-            ? "border-primary/40 bg-primary/6 shadow-glow"
+            ? "border-foreground/25 bg-foreground/[0.03]"
             : "border-border bg-card",
           locked && "opacity-70",
         )}
       >
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            <span className="text-xs font-medium text-muted-foreground">
               Level {board.level}
             </span>
             <h3 className="text-base font-semibold">{board.name}</h3>

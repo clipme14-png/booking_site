@@ -1,36 +1,28 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { theme, toggleTheme } = useTheme();
+  const next = theme === "dark" ? "light" : "dark";
   return (
     <button
       onClick={toggleTheme}
-      aria-label="Toggle theme"
+      aria-label={`Switch to ${next} appearance`}
+      title={`Switch to ${next} appearance`}
       className={cn(
-        "relative flex size-10 items-center justify-center overflow-hidden rounded-lg border border-border bg-card/50 text-foreground transition-colors hover:bg-muted",
+        "relative flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground",
         className,
       )}
     >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={theme}
-          initial={{ y: -20, opacity: 0, rotate: -90 }}
-          animate={{ y: 0, opacity: 1, rotate: 0 }}
-          exit={{ y: 20, opacity: 0, rotate: 90 }}
-          transition={{ duration: 0.2 }}
-        >
-          {theme === "dark" ? (
-            <Sun className="size-4.5" />
-          ) : (
-            <Moon className="size-4.5" />
-          )}
-        </motion.span>
-      </AnimatePresence>
+      <Sun
+        className="absolute size-[17px] stroke-[1.75] transition-all duration-300 dark:scale-75 dark:opacity-0"
+      />
+      <Moon
+        className="absolute size-[17px] scale-75 stroke-[1.75] opacity-0 transition-all duration-300 dark:scale-100 dark:opacity-100"
+      />
     </button>
   );
 }

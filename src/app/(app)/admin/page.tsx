@@ -44,10 +44,10 @@ const monthLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
 
 // Brand hex colors keyed by plan accent
 const accentHex: Record<string, string> = {
-  muted: "#94a3b8",
-  secondary: "#2563eb",
-  primary: "#7c3aed",
-  accent: "#16a34a",
+  muted: "#8e8e93",
+  secondary: "#5b7fa6",
+  primary: "#2f6fde",
+  accent: "#b8955a",
 };
 
 /* ------------------------------------------------------------------ */
@@ -273,14 +273,14 @@ function AnnouncementsTab() {
         </CardContent>
       </Card>
 
-      <Card className="lg:col-span-2">
+      <Card className="xl:col-span-2">
         <CardHeader>
           <CardTitle>Recent announcements</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2.5">
           {posts.map((p) => (
             <div key={p.id} className="flex items-start gap-3 rounded-lg border border-border p-3">
-              <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-warning/15 text-warning [&_svg]:size-4">
+              <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-foreground/[0.05] text-foreground [&_svg]:size-4">
                 <Megaphone />
               </div>
               <div className="min-w-0">
@@ -481,7 +481,7 @@ export default function AdminPage() {
                 <CardTitle>Revenue</CardTitle>
                 <CardDescription>Monthly gross revenue (in thousands USD).</CardDescription>
               </div>
-              <span className="text-lg font-bold text-gradient">{formatUsd(adminMetrics.revenue)}</span>
+              <span className="text-lg font-semibold tabular">{formatUsd(adminMetrics.revenue)}</span>
             </CardHeader>
             <CardContent>
               <AreaChart data={adminMetrics.revenueSeries} labels={monthLabels} color="var(--violet)" height={220} />
@@ -495,7 +495,7 @@ export default function AdminPage() {
                 <CardTitle>User growth</CardTitle>
                 <CardDescription>Cumulative users (in thousands).</CardDescription>
               </div>
-              <span className="text-lg font-bold text-secondary">{compact(adminMetrics.users)}</span>
+              <span className="text-lg font-semibold text-secondary">{compact(adminMetrics.users)}</span>
             </CardHeader>
             <CardContent>
               <BarChart data={adminMetrics.userSeries} labels={monthLabels} height={220} />
@@ -505,8 +505,8 @@ export default function AdminPage() {
       </div>
 
       {/* Fraud + subscriptions breakdown */}
-      <div className="mb-6 grid gap-4 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+      <div className="mb-6 grid gap-4 xl:grid-cols-3">
+        <div className="xl:col-span-2">
           <Reveal>
             <FraudCard />
           </Reveal>
@@ -520,12 +520,12 @@ export default function AdminPage() {
             <CardContent>
               <div className="flex justify-center">
                 <DonutChart segments={donutSegments} size={172}>
-                  <span className="text-2xl font-bold">{compact(totalSubs)}</span>
+                  <span className="text-2xl font-semibold">{compact(totalSubs)}</span>
                   <span className="text-xs text-muted-foreground">subscribers</span>
                 </DonutChart>
               </div>
               <div className="mt-5 space-y-2.5">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Revenue by plan</p>
+                <p className="text-xs font-medium text-muted-foreground">Revenue by plan</p>
                 {planWeights
                   .filter((w) => w.revenue > 0)
                   .map((w) => (
@@ -600,7 +600,7 @@ export default function AdminPage() {
       <Reveal>
         <div className="mb-4 flex items-center gap-2">
           <Settings2 className="size-5 text-primary" />
-          <h2 className="text-lg font-bold tracking-tight">Management</h2>
+          <h2 className="text-lg font-semibold tracking-tight">Management</h2>
         </div>
         <Tabs defaultValue="users">
           <div className="mb-5 overflow-x-auto">

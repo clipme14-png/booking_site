@@ -73,10 +73,10 @@ export default function TwoFactorPage() {
   return (
     <motion.div variants={container} initial="hidden" animate="visible">
       <motion.div variants={item} className="mb-8 text-center">
-        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-brand-gradient text-white shadow-glow">
-          <ShieldCheck className="size-7" />
+        <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-foreground/[0.05] text-foreground">
+          <ShieldCheck className="size-6" strokeWidth={1.5} />
         </div>
-        <h1 className="mt-5 text-2xl font-bold tracking-tight">
+        <h1 className="mt-5 text-[28px] font-semibold leading-tight tracking-[-0.025em]">
           Two-factor authentication
         </h1>
         <p className="mx-auto mt-2 max-w-xs text-sm text-muted-foreground">
@@ -103,8 +103,8 @@ export default function TwoFactorPage() {
               onFocus={(e) => e.target.select()}
               className={cn(
                 "size-12 rounded-xl border bg-card text-center text-lg font-semibold shadow-xs transition-all sm:size-13",
-                "focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25",
-                digit ? "border-primary/50" : "border-input",
+                "focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring/20",
+                digit ? "border-foreground/25" : "border-input",
               )}
             />
           ))}
@@ -118,7 +118,7 @@ export default function TwoFactorPage() {
       <motion.p variants={item} className="mt-6 text-center text-sm text-muted-foreground">
         <Link
           href="/two-factor?method=backup"
-          className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline"
+          className="inline-flex items-center gap-1.5 text-secondary hover:underline"
         >
           <KeyRound className="size-4" />
           Use a backup code instead

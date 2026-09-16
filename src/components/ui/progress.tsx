@@ -4,6 +4,8 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+const ease = [0.28, 0.11, 0.32, 1] as const;
+
 export function Progress({
   value,
   className,
@@ -23,18 +25,15 @@ export function Progress({
       aria-valuemin={0}
       aria-valuemax={100}
       className={cn(
-        "relative h-2 w-full overflow-hidden rounded-full bg-muted",
+        "relative h-1.5 w-full overflow-hidden rounded-full bg-foreground/[0.07]",
         className,
       )}
     >
       <motion.div
-        className={cn(
-          "h-full rounded-full bg-brand-gradient",
-          indicatorClassName,
-        )}
+        className={cn("h-full rounded-full bg-primary", indicatorClassName)}
         initial={animated ? { width: 0 } : false}
         animate={{ width: `${pct}%` }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 1, ease }}
       />
     </div>
   );
@@ -68,7 +67,8 @@ export function CircularProgress({
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
-          className="stroke-muted"
+          stroke="currentColor"
+          className="text-foreground/[0.07]"
           fill="none"
         />
         <motion.circle
@@ -78,18 +78,12 @@ export function CircularProgress({
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           fill="none"
-          stroke="url(#circular-gradient)"
+          stroke="var(--primary)"
           strokeDasharray={circumference}
           initial={{ strokeDashoffset: circumference }}
           animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, ease }}
         />
-        <defs>
-          <linearGradient id="circular-gradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="hsl(var(--violet))" />
-            <stop offset="100%" stopColor="hsl(var(--blue))" />
-          </linearGradient>
-        </defs>
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
         {children}

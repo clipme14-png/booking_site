@@ -1,13 +1,15 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { WalletContextProvider } from "@/components/WalletContextProvider";
 import { ThemeProvider, themeInitScript } from "@/components/theme-provider";
 import { ToastProvider } from "@/components/ui/toast";
 
-const geistSans = Geist({
+// San Francisco is used on Apple devices via the system stack.
+// Inter is the fallback everywhere else.
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -19,12 +21,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Quantum Invest — Learn-to-Earn on Solana",
+    default: "Quantum Invest · Read. Learn. Earn.",
     template: "%s · Quantum Invest",
   },
   description:
-    "Read, learn, and earn SOL. Quantum Invest is the premium learn-to-earn platform on Solana — turn knowledge into wealth.",
+    "Quantum Invest pays you in SOL for the books you finish and the quizzes you pass. Non-custodial, built on Solana.",
   keywords: ["Solana", "Web3", "Learn to Earn", "Crypto", "Reading", "Rewards"],
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
 };
 
 export default function RootLayout({
@@ -38,7 +47,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen font-sans`}
+        className={`${inter.variable} ${geistMono.variable} min-h-screen font-sans`}
       >
         <ThemeProvider>
           <WalletContextProvider>

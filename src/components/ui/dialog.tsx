@@ -36,27 +36,28 @@ export function Dialog({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="absolute inset-0 bg-background/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/30 backdrop-blur-[6px] dark:bg-black/60"
           />
           <motion.div
             role="dialog"
             aria-modal="true"
-            initial={{ opacity: 0, scale: 0.95, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 8 }}
-            transition={{ type: "spring", stiffness: 320, damping: 30 }}
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.28, ease: [0.28, 0.11, 0.32, 1] }}
             className={cn(
-              "relative z-10 w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-lg",
+              "relative z-10 max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto overscroll-contain rounded-[22px] border border-border bg-popover p-7 shadow-lg",
               className,
             )}
           >
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute right-4 top-4 rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="absolute right-4 top-4 flex size-7 items-center justify-center rounded-full bg-foreground/[0.06] text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground"
             >
-              <X className="size-4" />
+              <X className="size-3.5" strokeWidth={2.25} />
             </button>
             {children}
           </motion.div>
@@ -74,10 +75,12 @@ export function DialogHeader({
   description?: string;
 }) {
   return (
-    <div className="mb-4 pr-6">
-      <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
+    <div className="mb-5 pr-8">
+      <h2 className="text-[19px] font-semibold tracking-tight">{title}</h2>
       {description && (
-        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+        <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
+          {description}
+        </p>
       )}
     </div>
   );

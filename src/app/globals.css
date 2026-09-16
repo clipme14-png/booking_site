@@ -4,85 +4,90 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ------------------------------------------------------------------ */
-/*  Design Tokens                                                      */
+/*  Design tokens                                                      */
+/*  A restrained, near-monochrome system. Ink carries the brand; one   */
+/*  blue is reserved for focus, links and data. Colour is information, */
+/*  never decoration.                                                  */
 /* ------------------------------------------------------------------ */
 :root {
-  --radius: 0.85rem;
+  --radius: 1rem;
 
   /* Surfaces */
-  --background: hsl(240 20% 99%);
-  --foreground: hsl(240 10% 8%);
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(240 10% 8%);
-  --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(240 10% 8%);
-  --muted: hsl(240 16% 96%);
-  --muted-foreground: hsl(240 6% 44%);
+  --background: #f5f5f7;
+  --foreground: #1d1d1f;
+  --card: #ffffff;
+  --card-foreground: #1d1d1f;
+  --popover: #ffffff;
+  --popover-foreground: #1d1d1f;
+  --muted: #f0f0f3;
+  --muted-foreground: #6e6e73;
+  --canvas: #ffffff; /* marketing page ground */
 
   /* Brand */
-  --primary: hsl(262 83% 58%);
-  --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(221 83% 55%);
-  --secondary-foreground: hsl(0 0% 100%);
-  --accent: hsl(152 62% 42%);
-  --accent-foreground: hsl(0 0% 100%);
+  --primary: #1d1d1f;
+  --primary-foreground: #ffffff;
+  --secondary: #0071e3;
+  --secondary-foreground: #ffffff;
+  --accent: #1f8a4c;
+  --accent-foreground: #ffffff;
 
   /* Feedback */
-  --success: hsl(152 62% 42%);
-  --warning: hsl(38 92% 50%);
-  --destructive: hsl(0 72% 51%);
-  --destructive-foreground: hsl(0 0% 100%);
+  --success: #1f8a4c;
+  --warning: #b25e00;
+  --destructive: #d70015;
+  --destructive-foreground: #ffffff;
 
   /* Lines & fields */
-  --border: hsl(240 12% 90%);
-  --input: hsl(240 12% 90%);
-  --ring: hsl(262 83% 58%);
+  --border: rgb(0 0 0 / 0.08);
+  --input: rgb(0 0 0 / 0.14);
+  --ring: #0071e3;
 
-  /* Brand raw values for gradients / glows */
-  --violet: 262 83% 58%;
-  --blue: 221 83% 55%;
-  --green: 152 62% 42%;
+  /* Raw HSL channels for charts (used as hsl(var(--x) / a)) */
+  --violet: 211 100% 45%; /* primary series */
+  --blue: 240 2% 56%; /* secondary series */
+  --green: 145 63% 33%; /* positive series */
 
-  --sidebar: hsl(0 0% 100%);
-  --sidebar-foreground: hsl(240 10% 8%);
-  --glass: 255 255 255;
-  --shadow-color: 240 30% 20%;
+  --sidebar: #fbfbfd;
+  --sidebar-foreground: #1d1d1f;
+  --glass: 251 251 253;
+  --shadow-color: 0 0 0;
 }
 
 .dark {
-  --background: hsl(240 12% 5%);
-  --foreground: hsl(240 12% 96%);
-  --card: hsl(240 11% 8%);
-  --card-foreground: hsl(240 12% 96%);
-  --popover: hsl(240 11% 8%);
-  --popover-foreground: hsl(240 12% 96%);
-  --muted: hsl(240 9% 13%);
-  --muted-foreground: hsl(240 6% 60%);
+  --background: #000000;
+  --foreground: #f5f5f7;
+  --card: #161617;
+  --card-foreground: #f5f5f7;
+  --popover: #1c1c1e;
+  --popover-foreground: #f5f5f7;
+  --muted: #232325;
+  --muted-foreground: #98989d;
+  --canvas: #000000;
 
-  --primary: hsl(263 90% 68%);
-  --primary-foreground: hsl(240 12% 6%);
-  --secondary: hsl(217 91% 65%);
-  --secondary-foreground: hsl(240 12% 6%);
-  --accent: hsl(152 58% 52%);
-  --accent-foreground: hsl(240 12% 6%);
+  --primary: #f5f5f7;
+  --primary-foreground: #000000;
+  --secondary: #2997ff;
+  --secondary-foreground: #000000;
+  --accent: #30d158;
+  --accent-foreground: #000000;
 
-  --success: hsl(152 58% 52%);
-  --warning: hsl(38 92% 58%);
-  --destructive: hsl(0 72% 58%);
-  --destructive-foreground: hsl(0 0% 100%);
+  --success: #30d158;
+  --warning: #ff9f0a;
+  --destructive: #ff453a;
+  --destructive-foreground: #ffffff;
 
-  --border: hsl(240 8% 18%);
-  --input: hsl(240 8% 18%);
-  --ring: hsl(263 90% 68%);
+  --border: rgb(255 255 255 / 0.1);
+  --input: rgb(255 255 255 / 0.16);
+  --ring: #2997ff;
 
-  --violet: 263 90% 68%;
-  --blue: 217 91% 65%;
-  --green: 152 58% 52%;
+  --violet: 211 100% 58%;
+  --blue: 240 3% 62%;
+  --green: 135 64% 50%;
 
-  --sidebar: hsl(240 12% 6%);
-  --sidebar-foreground: hsl(240 12% 96%);
-  --glass: 20 20 28;
-  --shadow-color: 240 60% 2%;
+  --sidebar: #0a0a0b;
+  --sidebar-foreground: #f5f5f7;
+  --glass: 22 22 23;
+  --shadow-color: 0 0 0;
 }
 
 /* ------------------------------------------------------------------ */
@@ -97,6 +102,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-canvas: var(--canvas);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -113,24 +119,37 @@
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* San Francisco on Apple platforms, Inter everywhere else */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", var(--font-geist-mono), Menlo, monospace;
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 10px);
+  /* Apple sets headlines in semibold, not bold */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 590;
+  --font-weight-bold: 650;
+  --font-weight-extrabold: 650;
+  --font-weight-black: 650;
 
-  --shadow-xs: 0 1px 2px 0 hsl(var(--shadow-color) / 0.05);
-  --shadow-sm: 0 1px 3px 0 hsl(var(--shadow-color) / 0.08), 0 1px 2px -1px hsl(var(--shadow-color) / 0.08);
-  --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / 0.1), 0 2px 6px -2px hsl(var(--shadow-color) / 0.08);
-  --shadow-lg: 0 12px 32px -8px hsl(var(--shadow-color) / 0.14), 0 4px 12px -4px hsl(var(--shadow-color) / 0.1);
-  --shadow-glow: 0 0 40px -8px hsl(var(--violet) / 0.45);
+  --tracking-tight: -0.022em;
+  --tracking-tighter: -0.032em;
 
-  --animate-shimmer: shimmer 2s linear infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-aurora: aurora 18s ease infinite;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: var(--radius);
+  --radius-2xl: 1.375rem;
+  --radius-3xl: 1.75rem;
+
+  --shadow-xs: 0 1px 1px 0 rgb(var(--shadow-color) / 0.03);
+  --shadow-sm: 0 1px 2px 0 rgb(var(--shadow-color) / 0.04), 0 0 0 0.5px rgb(var(--shadow-color) / 0.02);
+  --shadow-md: 0 4px 16px -4px rgb(var(--shadow-color) / 0.08), 0 1px 3px rgb(var(--shadow-color) / 0.04);
+  --shadow-lg: 0 24px 48px -16px rgb(var(--shadow-color) / 0.14), 0 2px 6px rgb(var(--shadow-color) / 0.04);
+  --shadow-glow: 0 8px 24px -12px rgb(var(--shadow-color) / 0.18);
+
+  --ease-apple: cubic-bezier(0.28, 0.11, 0.32, 1);
+
+  --animate-shimmer: shimmer 1.8s linear infinite;
 }
 
 /* ------------------------------------------------------------------ */
@@ -148,23 +167,42 @@
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
+    font-size: 15px;
+    letter-spacing: -0.009em;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+  }
+  /* Let grid children shrink below their content width, so wide tables
+     and rows scroll inside their card instead of widening the page. */
+  [class~="grid"] > * {
+    min-width: 0;
   }
   ::selection {
-    background-color: hsl(var(--violet) / 0.25);
+    background-color: rgb(0 113 227 / 0.2);
   }
-  /* Themed scrollbar */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  /* Quiet scrollbars */
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    scrollbar-color: var(--input) transparent;
   }
   *::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
   *::-webkit-scrollbar-thumb {
-    background-color: var(--border);
+    background-color: var(--input);
     border-radius: 999px;
     border: 3px solid transparent;
     background-clip: content-box;
@@ -173,38 +211,50 @@
     background-color: var(--muted-foreground);
     background-clip: content-box;
   }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 /* ------------------------------------------------------------------ */
 /*  Utilities                                                         */
+/*  Legacy names are kept so existing markup keeps compiling, but they */
+/*  now resolve to the quiet system above.                             */
 /* ------------------------------------------------------------------ */
 @layer utilities {
+  /* Translucent material, as used by macOS toolbars */
   .glass {
-    background: hsl(var(--glass) / 0.65);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background: rgb(var(--glass) / 0.72);
+    @apply backdrop-blur-[20px] backdrop-saturate-[1.8];
   }
   .glass-strong {
-    background: hsl(var(--glass) / 0.85);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    background: rgb(var(--glass) / 0.86);
+    @apply backdrop-blur-[24px] backdrop-saturate-[1.8];
   }
+  /* Formerly a rainbow gradient. Emphasis now comes from weight alone. */
   .text-gradient {
-    background: linear-gradient(
-      100deg,
-      hsl(var(--violet)),
-      hsl(var(--blue)) 55%,
-      hsl(var(--green))
-    );
+    color: inherit;
+  }
+  /* Formerly purple-to-blue. Now solid ink. */
+  .bg-brand-gradient,
+  .bg-brand-gradient-vivid {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+  /* A soft metallic fill for large display type */
+  .text-metal {
+    background: linear-gradient(180deg, var(--foreground) 30%, color-mix(in oklab, var(--foreground) 55%, transparent));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-  }
-  .bg-brand-gradient {
-    background-image: linear-gradient(100deg, hsl(var(--violet)), hsl(var(--blue)));
-  }
-  .bg-brand-gradient-vivid {
-    background-image: linear-gradient(120deg, hsl(var(--violet)), hsl(var(--blue)) 50%, hsl(var(--green)));
   }
   .ring-focus {
     outline: 2px solid transparent;
@@ -215,19 +265,27 @@
     outline-offset: 2px;
   }
   .card-hover {
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-      border-color 0.25s ease;
+    transition: box-shadow 0.4s var(--ease-apple), border-color 0.4s var(--ease-apple);
   }
   .card-hover:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-md);
   }
+  /* Grid texture removed from the system. */
   .grid-pattern {
-    background-image:
-      linear-gradient(to right, hsl(var(--violet) / 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--violet) / 0.06) 1px, transparent 1px);
-    background-size: 44px 44px;
+    background-image: none;
+  }
+  .hairline {
+    border-width: 0.5px;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 590;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
   }
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -237,32 +295,73 @@
     scrollbar-width: none;
   }
   .animate-in {
-    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fade-up 0.6s var(--ease-apple) both;
   }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ink surface                                                       */
+/*  A dark, Apple Card-like panel that stays dark in both themes.     */
+/*  Unlayered on purpose so it wins over the card's own background.   */
+/* ------------------------------------------------------------------ */
+.surface-ink {
+  background-color: #1d1d1f;
+  color: #ffffff;
+  border-color: transparent;
+}
+.dark .surface-ink {
+  background-color: #1c1c1e;
+  border-color: rgb(255 255 255 / 0.1);
 }
 
 /* ------------------------------------------------------------------ */
 /*  Keyframes                                                         */
 /* ------------------------------------------------------------------ */
 @keyframes shimmer {
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
-}
-@keyframes aurora {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(3%, -3%) rotate(4deg); }
-  66% { transform: translate(-3%, 2%) rotate(-3deg); }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Solana wallet-adapter modal theming to match app */
+/* ------------------------------------------------------------------ */
+/*  Solana wallet-adapter modal, restyled to match                    */
+/* ------------------------------------------------------------------ */
 .wallet-adapter-button-trigger {
   background: transparent !important;
+}
+.wallet-adapter-modal-wrapper {
+  background: var(--popover) !important;
+  border-radius: 22px !important;
+  box-shadow: var(--shadow-lg) !important;
+  font-family: var(--font-sans) !important;
+}
+.wallet-adapter-modal-title {
+  color: var(--foreground) !important;
+  font-weight: 590 !important;
+  letter-spacing: -0.02em !important;
+}
+.wallet-adapter-modal-list .wallet-adapter-button {
+  color: var(--foreground) !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 500 !important;
+  border-radius: 12px !important;
+}
+.wallet-adapter-modal-list .wallet-adapter-button:hover {
+  background: var(--muted) !important;
+}
+.wallet-adapter-modal-button-close {
+  background: var(--muted) !important;
+}
+.wallet-adapter-modal-button-close svg {
+  fill: var(--muted-foreground) !important;
+}
+.wallet-adapter-modal-overlay {
+  background: rgb(0 0 0 / 0.4) !important;
+  @apply backdrop-blur-sm;
+}
+.wallet-adapter-modal-list-more {
+  color: var(--muted-foreground) !important;
 }

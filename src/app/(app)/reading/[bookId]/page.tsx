@@ -16,8 +16,6 @@ import {
   BookOpen,
   Award,
   CheckCircle2,
-  Trophy,
-  PartyPopper,
 } from "lucide-react";
 import { books } from "@/lib/mock-data";
 import { cn, formatToken } from "@/lib/utils";
@@ -27,6 +25,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Dialog } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/toast";
+import { SuccessMark } from "@/components/ui/success-mark";
 
 /* ------------------------------------------------------------------ */
 /* Content                                                             */
@@ -144,7 +143,7 @@ export default function ReaderPage() {
   return (
     <div className="pb-24">
       {/* Sticky toolbar */}
-      <div className="sticky top-16 z-30 -mx-4 mb-6 border-b border-border bg-background/80 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6">
+      <div className="sticky top-14 z-30 -mx-4 -mt-8 mb-8 border-b border-border bg-background/80 px-4 py-3 backdrop-blur-xl sm:-mx-6 sm:px-6 lg:-mx-10 lg:-mt-10 lg:px-10">
         <div className="flex items-center gap-3">
           <Link
             href="/reading"
@@ -216,12 +215,12 @@ export default function ReaderPage() {
             <Badge variant="default" className="mb-4">
               Chapter {activeChapter + 1} — {CHAPTERS[activeChapter]}
             </Badge>
-            <h1 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+            <h1 className="mb-6 text-3xl font-semibold tracking-tight sm:text-4xl">
               {book.title}
             </h1>
 
             <div
-              className="space-y-6 leading-relaxed text-foreground/90"
+              className="space-y-6 font-[ui-serif,'New_York','Iowan_Old_Style',Charter,Georgia,serif] leading-relaxed text-foreground/90 [letter-spacing:0]"
               style={{ fontSize, lineHeight: 1.75 }}
             >
               {PROSE.map((p, i) => (
@@ -233,7 +232,7 @@ export default function ReaderPage() {
                   transition={{ duration: 0.5 }}
                 >
                   {i === 0 ? (
-                    <span className="float-left mr-2 mt-1 text-6xl font-bold leading-[0.8] text-gradient">
+                    <span className="float-left mr-2 mt-1.5 text-[4.2em] font-normal leading-[0.75] text-foreground">
                       {p.charAt(0)}
                     </span>
                   ) : null}
@@ -243,7 +242,7 @@ export default function ReaderPage() {
             </div>
 
             <div className="mt-10 flex flex-col items-center gap-4 rounded-2xl border border-border bg-muted/30 p-6 text-center">
-              <div className="flex size-12 items-center justify-center rounded-full bg-brand-gradient text-white shadow-glow">
+              <div className="flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
                 <Award className="size-6" />
               </div>
               <div>
@@ -272,7 +271,7 @@ export default function ReaderPage() {
 
         {/* Sidebar */}
         <aside className="hidden lg:block">
-          <div className="sticky top-40 space-y-4">
+          <div className="sticky top-36 space-y-4">
             <Card className="overflow-hidden">
               <div
                 className="h-28"
@@ -297,7 +296,7 @@ export default function ReaderPage() {
 
             <Card>
               <CardContent className="p-4">
-                <p className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                <p className="mb-3 flex items-center gap-2 text-xs font-medium text-muted-foreground">
                   <BookOpen className="size-3.5" />
                   Table of contents
                 </p>
@@ -319,7 +318,7 @@ export default function ReaderPage() {
                             className={cn(
                               "flex size-5 shrink-0 items-center justify-center rounded-full border text-[10px] font-semibold",
                               active
-                                ? "border-primary bg-primary text-white"
+                                ? "border-primary bg-primary text-primary-foreground"
                                 : done
                                   ? "border-success bg-success/15 text-success"
                                   : "border-border",
@@ -353,7 +352,7 @@ export default function ReaderPage() {
       </div>
 
       {/* Bottom action bar */}
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/85 backdrop-blur-md">
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-background/85 backdrop-blur-xl lg:left-60">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:px-6">
           <Link
             href="/reading"
@@ -395,89 +394,30 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 function RewardCelebration({ reward }: { reward: number }) {
-  const confetti = React.useMemo(
-    () =>
-      Array.from({ length: 14 }).map((_, i) => ({
-        id: i,
-        x: (Math.random() - 0.5) * 260,
-        y: -(Math.random() * 160 + 60),
-        rotate: Math.random() * 360,
-        color: ["#7c3aed", "#2563eb", "#16a34a", "#f59e0b", "#db2777"][i % 5],
-        delay: Math.random() * 0.2,
-      })),
-    [],
-  );
-
   return (
-    <div className="relative flex flex-col items-center overflow-hidden py-4 text-center">
-      {confetti.map((c) => (
-        <motion.span
-          key={c.id}
-          className="absolute left-1/2 top-16 size-2 rounded-sm"
-          style={{ backgroundColor: c.color }}
-          initial={{ opacity: 0, x: 0, y: 0, rotate: 0 }}
-          animate={{
-            opacity: [0, 1, 1, 0],
-            x: c.x,
-            y: c.y,
-            rotate: c.rotate,
-          }}
-          transition={{ duration: 1.4, delay: c.delay, ease: "easeOut" }}
-        />
-      ))}
-
+    <div className="flex flex-col items-center py-2 text-center">
+      <SuccessMark size={64} />
       <motion.div
-        initial={{ scale: 0, rotate: -30 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ type: "spring", stiffness: 240, damping: 14 }}
-        className="relative z-10 flex size-20 items-center justify-center rounded-full bg-brand-gradient text-white shadow-glow"
-      >
-        <Trophy className="size-10" />
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
+        initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="relative z-10 mt-4"
+        transition={{ delay: 0.35, duration: 0.5, ease: [0.28, 0.11, 0.32, 1] }}
+        className="mt-5 w-full"
       >
-        <div className="flex items-center justify-center gap-2">
-          <PartyPopper className="size-5 text-warning" />
-          <h2 className="text-xl font-bold tracking-tight">Reward earned!</h2>
-        </div>
-        <p className="mt-1 text-sm text-muted-foreground">
-          You finished the book. Nice work.
+        <h2 className="text-[19px] font-semibold tracking-tight">Book complete</h2>
+        <p className="mt-6 text-[44px] font-semibold leading-none tracking-[-0.03em] tabular">
+          +{reward.toFixed(2)}
+          <span className="ml-1.5 text-lg font-medium tracking-normal text-muted-foreground">SOL</span>
+        </p>
+        <p className="mt-3 text-[13px] text-muted-foreground">
+          Added to your pending rewards. Pass the quiz to release it.
         </p>
 
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.35, type: "spring", stiffness: 200 }}
-          className="mx-auto mt-5 inline-flex items-center gap-2 rounded-xl border border-border bg-muted/50 px-5 py-3"
-        >
-          <Coins className="size-5 text-primary" />
-          <span className="text-2xl font-bold text-gradient">
-            +{formatToken(reward)}
-          </span>
-        </motion.div>
-
-        <p className="mt-4 text-xs text-muted-foreground">
-          Pass the quiz to claim your reward and earn bonus XP.
-        </p>
-
-        <div className="mt-5 flex gap-2">
-          <Link
-            href="/reading"
-            className={cn(buttonVariants({ variant: "outline" }), "flex-1")}
-          >
-            Back to library
+        <div className="mt-8 grid grid-cols-2 gap-2">
+          <Link href="/reading" className={cn(buttonVariants({ variant: "outline" }))}>
+            Library
           </Link>
-          <Link
-            href="/quiz"
-            className={cn(buttonVariants(), "flex-1")}
-          >
-            Take quiz
-            <ArrowRight className="size-4" />
+          <Link href="/quiz" className={cn(buttonVariants())}>
+            Take the quiz
           </Link>
         </div>
       </motion.div>

@@ -66,9 +66,9 @@ export const appNav: NavGroup[] = [
 ];
 
 export const marketingNav = [
-  { label: "Features", href: "/#features" },
+  { label: "Overview", href: "/#features" },
   { label: "How it works", href: "/#how" },
   { label: "Plans", href: "/#plans" },
   { label: "Roadmap", href: "/#roadmap" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Questions", href: "/#faq" },
 ];

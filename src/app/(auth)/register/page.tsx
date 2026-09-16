@@ -97,8 +97,8 @@ export default function RegisterPage() {
   return (
     <motion.div variants={container} initial="hidden" animate="visible">
       <motion.div variants={item} className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">Create your account</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.025em]">Create your account</h1>
+        <p className="mt-2 text-[15px] text-muted-foreground">
           Start learning and earning SOL in minutes.
         </p>
       </motion.div>
@@ -197,19 +197,19 @@ export default function RegisterPage() {
             className={cn(
               "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border transition-colors",
               agree
-                ? "border-transparent bg-brand-gradient text-white"
-                : "border-input bg-card hover:border-primary/50",
+                ? "border-transparent bg-secondary text-white"
+                : "border-input bg-card hover:border-foreground/30",
             )}
           >
             {agree && <Check className="size-3.5" />}
           </button>
           <span>
             I agree to Quantum Invest&apos;s{" "}
-            <Link href="/terms" className="font-medium text-primary hover:underline">
+            <Link href="/terms" className="text-secondary hover:underline">
               Terms
             </Link>{" "}
             and{" "}
-            <Link href="/privacy" className="font-medium text-primary hover:underline">
+            <Link href="/privacy" className="text-secondary hover:underline">
               Privacy Policy
             </Link>
             .
@@ -245,7 +245,7 @@ export default function RegisterPage() {
 
       <motion.p variants={item} className="mt-8 text-center text-sm text-muted-foreground">
         Already have an account?{" "}
-        <Link href="/login" className="font-semibold text-primary hover:underline">
+        <Link href="/login" className="text-secondary hover:underline">
           Sign in
         </Link>
       </motion.p>

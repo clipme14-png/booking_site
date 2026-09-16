@@ -10,7 +10,6 @@ import {
   Coins,
   TrendingUp,
   Share2,
-  Gift,
   Send,
   MessageCircle,
   QrCode,
@@ -34,7 +33,7 @@ import { Table, THead, TBody, TR, TH, TD } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/reveal";
 import { useToast } from "@/components/ui/toast";
-import { cn, formatToken, formatUsd } from "@/lib/utils";
+import { cn, formatToken } from "@/lib/utils";
 import { referralStats, leaderboard, currentUser } from "@/lib/mock-data";
 
 /* --------------------------------------------------------------- */
@@ -151,20 +150,18 @@ function ShareButton({
   onClick: () => void;
 }) {
   return (
-    <motion.button
+    <button
       type="button"
       onClick={onClick}
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.95 }}
       aria-label={`Share on ${label}`}
       title={`Share on ${label}`}
       className={cn(
-        "flex size-11 items-center justify-center rounded-xl border border-border bg-card text-white shadow-sm transition-colors [&_svg]:size-5",
+        "flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-foreground/[0.05] active:scale-95 [&_svg]:size-4",
         className,
       )}
     >
       {icon}
-    </motion.button>
+    </button>
   );
 }
 
@@ -229,26 +226,22 @@ export default function ReferralsPage() {
     <div>
       <PageHeader
         title="Referrals"
-        description="Earn up to 18% when friends learn & earn"
+        description="Earn up to 18% when the people you invite read and earn."
       />
 
       {/* Referral link + share + QR */}
       <Reveal>
         <Card className="overflow-hidden">
-          <div className="relative border-b border-border bg-brand-gradient/5 p-6">
-            <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" />
+          <div className="relative border-b border-border p-6 sm:p-7">
             <div className="relative grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <span className="flex size-9 items-center justify-center rounded-xl bg-brand-gradient text-white [&_svg]:size-4.5 shadow-glow">
-                    <Gift className="size-4.5" />
-                  </span>
                   <div>
                     <h2 className="text-base font-semibold tracking-tight">
                       Your referral link
                     </h2>
                     <p className="text-xs text-muted-foreground">
-                      Share it anywhere — you earn on 3 levels of referrals.
+                      Share it anywhere. You earn across three levels.
                     </p>
                   </div>
                 </div>
@@ -275,7 +268,7 @@ export default function ReferralsPage() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
-                  <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2">
+                  <div className="flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pl-3.5 pr-2.5">
                     <span className="text-xs text-muted-foreground">Code</span>
                     <span className="font-mono text-sm font-semibold tracking-wider">
                       {referralStats.code}
@@ -284,7 +277,7 @@ export default function ReferralsPage() {
                       type="button"
                       onClick={() => copy(referralStats.code, "code")}
                       aria-label="Copy referral code"
-                      className="text-muted-foreground transition-colors hover:text-primary [&_svg]:size-4"
+                      className="text-muted-foreground transition-colors hover:text-foreground [&_svg]:size-3.5"
                     >
                       <Copy />
                     </button>
@@ -296,25 +289,21 @@ export default function ReferralsPage() {
                     <ShareButton
                       label="X"
                       icon={<XIcon />}
-                      className="bg-[#0b0b12] hover:bg-black"
                       onClick={() => share("X")}
                     />
                     <ShareButton
                       label="Telegram"
                       icon={<Send />}
-                      className="bg-[#229ED9] hover:brightness-110"
                       onClick={() => share("Telegram")}
                     />
                     <ShareButton
                       label="WhatsApp"
                       icon={<MessageCircle />}
-                      className="bg-[#25D366] hover:brightness-110"
                       onClick={() => share("WhatsApp")}
                     />
                     <ShareButton
                       label="Facebook"
                       icon={<FacebookIcon />}
-                      className="bg-[#1877F2] hover:brightness-110"
                       onClick={() => share("Facebook")}
                     />
                   </div>
@@ -380,9 +369,9 @@ export default function ReferralsPage() {
         </Reveal>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+      <div className="mt-6 grid gap-6 xl:grid-cols-3">
         {/* Referral levels */}
-        <Reveal className="lg:col-span-2">
+        <Reveal className="xl:col-span-2">
           <Card>
             <CardHeader>
               <CardTitle>Referral levels</CardTitle>
@@ -393,9 +382,9 @@ export default function ReferralsPage() {
             <CardContent className="space-y-4">
               {referralStats.levels.map((lvl, i) => {
                 const chipTone = [
-                  "bg-primary/12 text-primary",
-                  "bg-secondary/12 text-secondary",
-                  "bg-accent/12 text-accent",
+                  "bg-foreground/[0.05] text-foreground",
+                  "bg-foreground/[0.05] text-foreground",
+                  "bg-foreground/[0.05] text-foreground",
                 ][i];
                 const barTone = ["bg-primary", "bg-secondary", "bg-accent"][i];
                 const max = referralStats.levels[0].count || 1;
@@ -408,7 +397,7 @@ export default function ReferralsPage() {
                       <div className="flex items-center gap-3">
                         <span
                           className={cn(
-                            "flex size-9 items-center justify-center rounded-lg text-sm font-bold",
+                            "flex size-9 items-center justify-center rounded-lg text-sm font-semibold",
                             chipTone,
                           )}
                         >
@@ -424,7 +413,7 @@ export default function ReferralsPage() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-bold">
+                        <p className="text-sm font-semibold">
                           {formatToken(lvl.earned)}
                         </p>
                         <p className="text-xs text-muted-foreground">earned</p>
@@ -456,16 +445,16 @@ export default function ReferralsPage() {
                   className={cn(
                     "flex items-center gap-3 rounded-xl border p-3 transition-colors",
                     entry.you
-                      ? "border-primary/40 bg-primary/8 shadow-glow"
+                      ? "border-foreground/25 bg-foreground/[0.03]"
                       : "border-transparent hover:bg-muted/40",
                   )}
                 >
                   <span
                     className={cn(
-                      "flex size-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold",
+                      "flex size-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold",
                       entry.rank <= 3
-                        ? "bg-brand-gradient text-white"
-                        : "bg-muted text-muted-foreground",
+                        ? "bg-foreground/[0.07] text-foreground"
+                        : "text-muted-foreground",
                     )}
                   >
                     {entry.rank}
@@ -615,9 +604,9 @@ function TreeCard({
       viewport={{ once: true }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "flex items-center gap-2.5 rounded-xl border bg-card px-3 py-2 shadow-sm",
+        "flex items-center gap-2.5 rounded-xl border bg-card px-3 py-2",
         root
-          ? "border-primary/40 bg-primary/8 shadow-glow"
+          ? "border-foreground/25 bg-foreground/[0.03]"
           : "border-border",
         small ? "px-2.5 py-1.5" : "",
       )}

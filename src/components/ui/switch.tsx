@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+/** iOS-style switch. */
 export function Switch({
   checked,
   onCheckedChange,
@@ -25,15 +26,15 @@ export function Switch({
       disabled={disabled}
       onClick={() => onCheckedChange(!checked)}
       className={cn(
-        "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50",
-        checked ? "bg-brand-gradient" : "bg-muted-foreground/30",
+        "relative inline-flex h-[26px] w-[42px] shrink-0 items-center rounded-full p-[2px] transition-colors duration-300 ease-[var(--ease-apple)] disabled:opacity-40",
+        checked ? "bg-success" : "bg-foreground/15",
         className,
       )}
     >
       <span
         className={cn(
-          "inline-block size-5 transform rounded-full bg-white shadow-sm transition-transform",
-          checked ? "translate-x-5.5" : "translate-x-0.5",
+          "inline-block size-[22px] rounded-full bg-white shadow-[0_2px_6px_rgb(0_0_0/0.18),0_0_0_0.5px_rgb(0_0_0/0.04)] transition-transform duration-300 ease-[var(--ease-apple)]",
+          checked ? "translate-x-4" : "translate-x-0",
         )}
       />
     </button>
